@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>思考素養：知識技能、情意態度與後設思考｜孫效智教授</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+/* ========== 哲思黑金主題 ========== */
+:root {
+  --bg1: #14110D;
+  --bg2: #201B14;
+  --ink: #F2EBDC;
+  --sub: #B8AD98;
+  --accent: #D4AF37;
+  --accent-dim: #8C6F2F;
+  --line: rgba(212,175,55,0.28);
+  --card: rgba(255,255,255,0.045);
+  --font-sans: "Noto Sans TC","Microsoft JhengHei","微軟正黑體","PingFang TC",sans-serif;
+  --font-serif: "Noto Serif TC","Songti TC","PingFang TC",serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  line-height: 1.75;
+  color: var(--ink);
+  background:
+    radial-gradient(ellipse 120% 80% at 20% -10%, rgba(212,175,55,0.07), transparent 55%),
+    radial-gradient(ellipse 100% 90% at 100% 110%, rgba(140,111,47,0.10), transparent 60%),
+    linear-gradient(160deg, var(--bg2), var(--bg1) 70%);
+  overflow: hidden;
+}
+/* 細點底紋 */
+body::before {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background-image: radial-gradient(rgba(212,175,55,0.05) 1px, transparent 1px);
+  background-size: 26px 26px;
+}
+.deck { position: relative; width: 100vw; height: 100vh; overflow: hidden; z-index: 1; }
+.slide {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  padding: 5vh 6.5vw;
+  opacity: 0; visibility: hidden; transform: translateX(40px);
+  transition: opacity .5s ease, transform .5s ease, visibility 0s linear .5s;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.slide.active { opacity: 1; visibility: visible; transform: translateX(0);
+  transition: opacity .5s ease, transform .5s ease, visibility 0s; }
+.slide.prev { transform: translateX(-40px); }
+.slide.dense { justify-content: flex-start; padding-top: 6vh; }
+
+/* ========== 字體階層 ========== */
+h1 { font-family: var(--font-serif); font-size: clamp(2.4rem, 5vw, 4.4rem); font-weight: 900;
+     letter-spacing: .04em; line-height: 1.25; color: var(--ink); margin-bottom: .4em; }
+h2 { font-family: var(--font-serif); font-size: clamp(1.7rem, 3.2vw, 2.7rem); font-weight: 700;
+     letter-spacing: .03em; line-height: 1.35; color: var(--accent);
+     margin-bottom: .7em; padding-bottom: .3em; border-bottom: 2px solid var(--line);
+     display: inline-block; align-self: flex-start; }
+h3 { font-family: var(--font-serif); font-size: clamp(1.15rem, 1.9vw, 1.5rem); font-weight: 700;
+     color: var(--accent); margin: 0 0 .4em; }
+p  { font-size: clamp(1rem, 1.5vw, 1.3rem); margin-bottom: .7em; max-width: 34em; }
+.lead { font-size: clamp(1.15rem, 1.9vw, 1.6rem); color: var(--sub); font-weight: 300; }
+.gold { color: var(--accent); }
+.small { font-size: clamp(.85rem, 1.1vw, 1rem); color: var(--sub); }
+blockquote {
+  font-family: var(--font-serif); font-size: clamp(1.15rem, 1.8vw, 1.5rem);
+  border-left: 3px solid var(--accent); padding: .5em 1.3em; margin: .8em 0;
+  color: var(--ink); background: rgba(212,175,55,0.06); max-width: 36em;
+}
+blockquote cite { display: block; margin-top: .5em; font-size: .78em; color: var(--sub); font-style: normal; }
+
+/* ========== 版型 ========== */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5vw; align-items: center; flex: 1; min-height: 0; }
+.two-col.top { align-items: start; }
+.cards { display: grid; gap: 1.2vw; }
+.cards.c2 { grid-template-columns: 1fr 1fr; }
+.cards.c3 { grid-template-columns: repeat(3, 1fr); }
+.card {
+  background: var(--card); padding: 1.2em 1.4em; border-radius: 14px;
+  border: 1px solid var(--line); border-top: 3px solid var(--accent);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+}
+.card p { font-size: clamp(.92rem, 1.25vw, 1.12rem); margin-bottom: .4em; max-width: none; }
+ul.list { list-style: none; max-width: 40em; }
+ul.list li {
+  position: relative; padding: .45em 0 .45em 1.6em;
+  font-size: clamp(1rem, 1.45vw, 1.28rem);
+  border-bottom: 1px dashed rgba(212,175,55,0.18);
+}
+ul.list li::before {
+  content: "◆"; position: absolute; left: .1em; top: .5em;
+  color: var(--accent); font-size: .75em;
+}
+ul.list.tight li { padding: .32em 0 .32em 1.6em; font-size: clamp(.92rem, 1.3vw, 1.15rem); }
+.card ul.list li { border-bottom: none; }
+
+/* 章節頁 */
+.slide.section { align-items: flex-start; justify-content: center; }
+.section .kicker { font-size: clamp(1rem, 1.5vw, 1.3rem); letter-spacing: .35em; color: var(--sub); margin-bottom: 1em; }
+.section .big-num {
+  font-family: var(--font-serif); font-weight: 900;
+  font-size: clamp(5rem, 13vw, 11rem); line-height: 1;
+  background: linear-gradient(160deg, #F5DE8C 5%, var(--accent) 45%, #7A5E22 95%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  filter: drop-shadow(0 0 28px rgba(212,175,55,0.30));
+  margin-bottom: .1em;
+}
+.section h1 { border: none; }
+.section .sub { font-size: clamp(1.1rem, 1.9vw, 1.6rem); color: var(--sub); max-width: 30em; }
+
+/* 圖片框 */
+.imgframe {
+  background: #FBF7EE; padding: 10px; border-radius: 10px;
+  border: 1px solid var(--line); box-shadow: 0 14px 40px rgba(0,0,0,0.5);
+  display: inline-block; max-width: 100%;
+}
+.imgframe img { display: block; max-width: 100%; max-height: 62vh; border-radius: 4px; }
+.imgframe.darkok { background: #000; }
+figcaption, .cap {
+  font-family: var(--font-serif); font-style: italic;
+  font-size: clamp(.82rem, 1.05vw, .98rem); color: var(--sub); margin-top: .6em;
+}
+.gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: .8vw; align-content: center; }
+.gallery .imgframe { padding: 5px; }
+.gallery img { max-height: 24vh; width: 100%; object-fit: cover; }
+
+/* 影片 */
+.video-wrap {
+  position: relative; z-index: 60; width: min(58vw, 106vh);
+  aspect-ratio: 16/9; border-radius: 12px; overflow: hidden;
+  border: 1px solid var(--line); box-shadow: 0 16px 50px rgba(0,0,0,0.55);
+  background: #000; margin: 0 auto;
+}
+.video-wrap iframe { width: 100%; height: 100%; border: 0; }
+.vid-link { position: relative; z-index: 60; display: inline-block; margin-top: .8em;
+  color: var(--accent); font-size: .95rem; text-decoration: none; border-bottom: 1px dotted var(--accent); }
+.local-clip {
+  border: 2px dashed var(--accent-dim); border-radius: 14px; padding: 1.4em 1.8em;
+  background: rgba(212,175,55,0.05); max-width: 34em;
+}
+.local-clip .tag { display: inline-block; background: var(--accent); color: #14110D;
+  font-weight: 700; font-size: .82rem; border-radius: 999px; padding: .15em .9em; margin-bottom: .6em; letter-spacing: .1em; }
+
+/* 陪審員頁 */
+.juror { display: grid; grid-template-columns: 220px 1fr; gap: 3vw; align-items: center; flex: 1; min-height: 0; }
+.juror-badge { text-align: center; }
+.juror-badge .ord-label { font-size: .95rem; letter-spacing: .3em; color: var(--sub); }
+.juror-badge .ord {
+  font-family: var(--font-serif); font-weight: 900; line-height: 1;
+  font-size: clamp(4.5rem, 9vw, 7.5rem);
+  background: linear-gradient(160deg, #F5DE8C 5%, var(--accent) 45%, #7A5E22 95%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  filter: drop-shadow(0 0 22px rgba(212,175,55,0.30));
+}
+.juror-badge .who { font-family: var(--font-serif); font-size: clamp(1.2rem, 1.8vw, 1.6rem);
+  font-weight: 700; color: var(--ink); margin-top: .4em; }
+.juror-badge .role { font-size: clamp(.9rem, 1.2vw, 1.05rem); color: var(--sub); }
+.juror .bucket { margin-bottom: .8em; }
+.juror .bucket h3 { font-size: clamp(1rem, 1.4vw, 1.2rem); margin-bottom: .15em; }
+.juror .bucket li { font-size: clamp(.9rem, 1.25vw, 1.1rem); padding: .28em 0 .28em 1.5em; }
+
+/* 對照表 */
+.contrast { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5vw; flex: 0 1 auto; }
+.contrast .side { padding: 1.2em 1.6em; border-radius: 14px; border: 1px solid var(--line); }
+.contrast .neg { background: rgba(120,40,40,0.14); border-top: 3px solid #A05252; }
+.contrast .pos { background: rgba(212,175,55,0.08); border-top: 3px solid var(--accent); }
+.contrast h3 { font-size: clamp(1.1rem, 1.6vw, 1.35rem); }
+.contrast .neg h3 { color: #D89A9A; }
+.contrast li { font-size: clamp(.95rem, 1.3vw, 1.15rem); padding: .3em 0 .3em 1.5em; }
+
+/* 三階段圖 */
+.stages { display: flex; align-items: stretch; gap: 0; justify-content: center; margin: 1em 0; }
+.stage { flex: 1; max-width: 20em; background: var(--card); border: 1px solid var(--line);
+  border-top: 3px solid var(--accent); border-radius: 14px; padding: 1.1em 1.3em; }
+.stage h3 { margin-bottom: .3em; }
+.stage p { font-size: clamp(.85rem, 1.15vw, 1.05rem); margin-bottom: .3em; max-width: none; }
+.stage-arrow { display: flex; flex-direction: column; justify-content: center; align-items: center;
+  padding: 0 .8vw; color: var(--accent); font-weight: 700; }
+.stage-arrow .a { font-size: 1.6rem; line-height: 1; }
+.stage-arrow .t { font-size: .78rem; color: var(--sub); }
+
+/* 大字頁 */
+.slide.big-say { text-align: center; align-items: center; }
+.big-say .line {
+  font-family: var(--font-serif); font-weight: 700;
+  font-size: clamp(1.8rem, 4vw, 3.4rem); line-height: 1.7; letter-spacing: .06em;
+}
+.big-say .line em { font-style: normal; color: var(--accent); }
+
+/* 封面／結尾 */
+.slide.cover, .slide.closing { text-align: center; align-items: center; }
+.cover .ornament, .closing .ornament { width: 90px; height: 3px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent); margin: 1.6em auto; }
+.cover .meta { margin-top: 2.2em; font-size: 1rem; color: var(--sub); letter-spacing: .12em; }
+.cover-cta {
+  position: relative; z-index: 60; margin-top: 2.2em;
+  background: var(--accent); color: #14110D; border: none;
+  padding: 1em 2.6em; font-size: 1.1rem; font-weight: 700; border-radius: 999px;
+  cursor: pointer; font-family: var(--font-sans); letter-spacing: .12em;
+  box-shadow: 0 10px 30px rgba(212,175,55,0.25);
+  transition: transform .2s, box-shadow .2s;
+}
+.cover-cta:hover { transform: translateY(-2px); box-shadow: 0 14px 38px rgba(212,175,55,0.35); }
+
+/* 引用來源 */
+ol.references { max-width: 56em; padding-left: 1.4em; }
+ol.references li { font-size: clamp(.78rem, 1vw, .95rem); line-height: 1.55; color: var(--sub); margin-bottom: .4em; }
+ol.references a { color: var(--accent); position: relative; z-index: 60; }
+
+/* ========== 導覽 UI ========== */
+.progress-bar { position: fixed; bottom: 0; left: 0; height: 3px; background: var(--accent);
+  width: 0%; transition: width .4s ease; z-index: 100; }
+.page-indicator { position: fixed; bottom: 1.4em; right: 4.6em; font-size: .85rem; color: var(--sub);
+  font-variant-numeric: tabular-nums; z-index: 100; background: rgba(20,17,13,0.7);
+  padding: .25em .8em; border-radius: 999px; backdrop-filter: blur(8px); }
+.nav-arrows { position: fixed; bottom: 1.2em; left: 1.6em; display: flex; gap: .5em; z-index: 100; }
+.nav-arrows button, .fs-toggle {
+  width: 2.4em; height: 2.4em; border: 1px solid var(--line);
+  background: rgba(212,175,55,0.10); color: var(--accent); border-radius: 50%;
+  cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center;
+  transition: all .2s; font-family: inherit;
+}
+.nav-arrows button:hover, .fs-toggle:hover { background: var(--accent); color: #14110D; transform: scale(1.08); }
+.fs-toggle { position: fixed; bottom: 1.2em; right: 1.4em; z-index: 100; }
+.click-zones { position: fixed; inset: 0; display: flex; pointer-events: none; z-index: 50; }
+.click-zone { flex: 1; pointer-events: auto; cursor: pointer; }
+body.no-clickzones .click-zones { display: none; }
+.toast { position: fixed; top: 1.5em; left: 50%; transform: translateX(-50%);
+  background: rgba(0,0,0,0.88); color: #fff; padding: .6em 1.4em; border-radius: 999px;
+  font-size: .9rem; z-index: 200; opacity: 0; transition: opacity .3s; pointer-events: none; }
+.toast.show { opacity: 1; }
+
+@media print {
+  body { overflow: visible; }
+  .deck { height: auto; }
+  .slide { position: relative; opacity: 1; visibility: visible; transform: none; page-break-after: always; height: 100vh; }
+  .progress-bar, .nav-arrows, .page-indicator, .fs-toggle, .click-zones { display: none; }
+}
+@media (max-width: 820px) {
+  .two-col, .cards.c2, .cards.c3, .contrast { grid-template-columns: 1fr; }
+  .juror { grid-template-columns: 1fr; }
+  .gallery { grid-template-columns: repeat(2, 1fr); }
+  .stages { flex-direction: column; }
+  body { overflow-y: auto; }
+}
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+<!-- 1 封面 -->
+<section class="slide cover active">
+  <p class="lead" style="letter-spacing:.4em;">生命教育專業發展工作坊</p>
+  <h1>思考素養</h1>
+  <div class="ornament"></div>
+  <p class="lead">知識與技能．情意與態度．後設思考——從《十二怒漢》出發</p>
+  <button class="cover-cta" onclick="startPresentation()">進入全螢幕．開始演講</button>
+  <div class="meta">孫效智 教授　|　國立臺灣大學生命教育研發育成中心　|　原工作坊 2023.02.18</div>
+</section>
+
+<!-- 2 楔子 -->
+<section class="slide big-say">
+  <h2>楔子</h2>
+  <p class="line" style="margin-top:.5em;">覺察：<em>誰在你的腦袋裡旁白？</em></p>
+  <p class="line">思考：你在發呆、胡思亂想、<br>隨意識流浮沉，還是<em>思考</em>？</p>
+</section>
+
+<!-- 3 今日旅程 -->
+<section class="slide">
+  <h2>今日的思考旅程</h2>
+  <div class="cards c2" style="flex:0 1 auto;">
+    <div class="card">
+      <h3>壹．思考素養導論</h3>
+      <p>看電影學思考：從《十二怒漢》觀察十二位陪審員，<br>探究影響思考的因素、思考的盲點與值得稱道之處。</p>
+    </div>
+    <div class="card">
+      <h3>貳．思考素養的三個子題</h3>
+      <p>知識與技能、情意與態度、後設思考——<br>以思考的目標開場，並以靈性修養貫串其中。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 4 Part 1 章節頁 -->
+<section class="slide section">
+  <p class="kicker">PART ONE</p>
+  <div class="big-num">壹</div>
+  <h1>思考素養導論</h1>
+  <p class="sub">電影回顧：《十二怒漢》</p>
+</section>
+
+<!-- 5 電影 -->
+<section class="slide">
+  <div class="two-col">
+    <div>
+      <h2>《十二怒漢》12 Angry Men（1957）</h2>
+      <p>紐約貧民窟的一名十八歲少年被控深夜持彈簧刀刺死父親。檢方提出人證與物證，法庭初步認定這是一樁預謀殺人案。</p>
+      <p>依美國陪審制，少年是否有罪不是由法官一人說了算——十二位陪審員必須做出<span class="gold">一致</span>的決定。</p>
+      <blockquote>Life is in their hands; death is on their minds!<cite>——本片宣傳語</cite></blockquote>
+    </div>
+    <div style="text-align:center;">
+      <span class="imgframe darkok"><img src="assets/d1_poster12angry.jpeg" alt="十二怒漢電影海報"></span>
+      <div class="cap">《12 Angry Men》（Sidney Lumet 執導，1957）</div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 觀影思考題 -->
+<section class="slide">
+  <h2>觀影時的思考題</h2>
+  <p class="lead">請仔細觀察《十二怒漢》並思考：</p>
+  <ul class="list">
+    <li>哪些因素影響他們的思考？</li>
+    <li>他們在思考時有哪些盲點？</li>
+    <li>他們的思考有哪些值得稱道之處？</li>
+  </ul>
+</section>
+
+<!-- 7 案情回顧 -->
+<section class="slide">
+  <h2>案情回顧</h2>
+  <div style="text-align:center; flex:0 1 auto;">
+    <span class="imgframe darkok"><img src="assets/d1_still.jpeg" alt="十二怒漢劇照" style="max-height:56vh;"></span>
+    <div class="cap">「倘若你們可以提出合理的懷疑，陪審團就應作出無罪認定；<br>如果找不出合理懷疑，你們必須基於良知，判決被告有罪。你們的決定必須一致。」——法官指示</div>
+  </div>
+</section>
+
+<!-- 8 三項證詞 -->
+<section class="slide">
+  <h2>檢方的三項證詞</h2>
+  <div class="cards c3" style="flex:0 1 auto;">
+    <div class="card">
+      <h3>證詞一：跛腳老人</h3>
+      <p>住在樓下的跛腳老人自稱親耳聽到少年大叫「我要殺死你」，接著聽到死者倒地的聲音。他走到樓梯口，目睹少年跑下樓梯；上樓探望，發現死者陳屍地上。</p>
+    </div>
+    <div class="card">
+      <h3>證詞二：對街婦女</h3>
+      <p>對街大樓的婦女自稱親眼目睹少年一刀插入父親胸口。當晚天氣太熱睡不著，她打開床邊窗戶透氣，午夜十二點透過穿越兩棟大樓之間、無乘客電車的倒數兩節車窗，瞥見少年高舉刀子刺下。</p>
+    </div>
+    <div class="card">
+      <h3>證詞三：商店老闆</h3>
+      <p>商店老闆證實，案發當天少年到店裡買了一把「罕見的」彈簧刀，而插在死者身上的兇刀正是那種彈簧刀。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 9 少年抗辯 -->
+<section class="slide">
+  <h2>少年的抗辯</h2>
+  <ul class="list">
+    <li>那天爸爸揍了他一頓。他跑出去跟朋友聊天，回家後又去看了一場電影。</li>
+    <li>半夜三點回到家門口，卻發現警察在現場等候，以及父親的屍體。他自稱沒有殺人。</li>
+    <li>他當天確實買了一把彈簧刀放在口袋裡，不料口袋有個破洞，刀掉了。</li>
+    <li>但他說不清楚當晚所看電影的名稱、劇情與主要演員。</li>
+  </ul>
+</section>
+
+<!-- 10 BRD 原則 -->
+<section class="slide">
+  <h2>BRD 原則（Beyond Reasonable Doubt）</h2>
+  <div class="card" style="max-width:44em;">
+    <ul class="list">
+      <li>BRD 原則為刑事訴訟中，陪審團認定被告有罪時適用的證明標準。</li>
+      <li>只當控訴方提出的犯罪證據達到「無法合理懷疑」的程度，方可斷定被告有罪。</li>
+      <li>若不符合 BRD，則必須判定其無罪。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 11 BRD 論證邏輯 -->
+<section class="slide">
+  <h2>BRD 原則的論證邏輯</h2>
+  <ul class="list">
+    <li>有罪判決 ＝ 排除合理懷疑 <span class="gold">≠</span> 事實上有罪</li>
+    <li>無罪判決 ＝ 無法排除合理懷疑 <span class="gold">≠</span> 事實上無罪</li>
+    <li>判決結果並非達到真相，而是確定合理懷疑可否排除。當然，有可能冤枉好人，也有可能錯放罪犯。</li>
+    <li>依此，無罪判決並非要證明對方事實上沒有犯罪，而是要指出：現有支持有罪的證據無法排除合理懷疑。</li>
+  </ul>
+</section>
+
+<!-- 12 小組討論 -->
+<section class="slide">
+  <h2>小組討論</h2>
+  <ul class="list">
+    <li>哪些因素影響陪審員的思考？<span class="small">（第 1、2 組）</span></li>
+    <li>他們在思考時有哪些盲點？<span class="small">（第 3、4 組）</span></li>
+    <li>又有哪些值得稱道與學習之處？<span class="small">（第 5、6 組）</span></li>
+    <li>從這部電影看，思考素養應包含哪些素質？<span class="small">（第 7、8 組）</span></li>
+  </ul>
+  <p class="small" style="margin-top:1em;">小組報告與綜合討論</p>
+</section>
+
+<!-- 13 第一次表決 -->
+<section class="slide">
+  <h2>不同角色的思考特質</h2>
+  <div style="text-align:center; flex:0 1 auto;">
+    <span class="imgframe darkok"><img src="assets/d1_order.jpg" alt="第一次表決劇照" style="max-height:54vh;"></span>
+    <div class="cap">第一次表決：十一比一。以下依十二位陪審員「支持無罪」的先後順序，逐一檢視其思考特質。</div>
+  </div>
+</section>
+
+<!-- 14 舉證邏輯錯置 -->
+<section class="slide">
+  <h2>3 號與 7 號的舉證邏輯錯置</h2>
+  <ul class="list">
+    <li>第一次表決時，僅 8 號（Davis）一人舉手主張無罪。</li>
+    <li>3 號與 7 號質疑 Davis：「你<em class="gold">真的覺得他無罪</em>嗎？」</li>
+    <li>然而，這個質疑有<span class="gold">舉證邏輯錯置</span>的問題——依 BRD 原則，8 號不必證明少年無罪，而是檢方必須排除合理懷疑。</li>
+  </ul>
+</section>
+
+<!-- 15 陪審員 8 號 -->
+<section class="slide juror-page">
+  <div class="juror">
+    <div class="juror-badge">
+      <div class="ord-label">支持無罪序</div>
+      <div class="ord">1</div>
+      <div class="who">8 號陪審員</div>
+      <div class="role">建築師（片尾揭示名為 Davis）</div>
+    </div>
+    <div>
+      <div class="bucket"><h3>情意／態度</h3><ul class="list tight">
+        <li>對涉及生死的決定慎重以對</li>
+        <li>同理少年處境</li>
+        <li>依陪審 BRD 原則檢視證詞邏輯</li>
+        <li>態度溫和尊重</li>
+      </ul></div>
+      <div class="bucket"><h3>思考優點</h3><ul class="list tight">
+        <li>前後一致地肯定：檢察官提供的有罪證據不符合 BRD 原則</li>
+      </ul></div>
+      <div class="bucket"><h3>思考盲點</h3><ul class="list tight">
+        <li>他並非萬能，不可能注意到所有細節，所以需要透過對話來拼湊完整圖像</li>
+        <li>他有「無知之知」，故無思考盲點</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 16 陪審員 9 號 -->
+<section class="slide juror-page">
+  <div class="juror">
+    <div class="juror-badge">
+      <div class="ord-label">支持無罪序</div>
+      <div class="ord">2</div>
+      <div class="who">9 號陪審員</div>
+      <div class="role">觀察力敏銳且富同理心的老年人（片尾揭示名為 McCardle）</div>
+    </div>
+    <div>
+      <div class="bucket"><h3>情意／態度</h3><ul class="list tight">
+        <li>敬重 8 號孤軍奮戰之道德</li>
+        <li>勇氣態度堅定且溫和</li>
+        <li>觀察力敏銳：理解老人想要出名的心理，也觀察到女證人鼻子上的眼鏡痕跡</li>
+      </ul></div>
+      <div class="bucket"><h3>思考優點</h3><ul class="list tight">
+        <li>邏輯清楚：8 號沒說少年無罪，只說「不能確認少年有罪」的論點無可懷疑</li>
+        <li>願意聽更多關於證詞的討論</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 17 陪審員 5 號 -->
+<section class="slide juror-page">
+  <div class="juror">
+    <div class="juror-badge">
+      <div class="ord-label">支持無罪序</div>
+      <div class="ord">3</div>
+      <div class="who">5 號陪審員</div>
+      <div class="role">貧民窟出身的工廠職員</div>
+    </div>
+    <div>
+      <div class="bucket"><h3>情意／態度</h3><ul class="list tight">
+        <li>結合自身成長經驗來「理解」案情，但不會堅持己見</li>
+      </ul></div>
+      <div class="bucket"><h3>轉折點</h3><ul class="list tight">
+        <li>被冤枉的經驗可能讓他意識到 3 號與 8 號的主觀及非理性情緒</li>
+        <li>同意電車經過老人窗口時發出轟隆隆的噪音——老人或許聽到了爭吵聲，卻聽不清楚到底發生了什麼事；也認同大喊「我要殺了你」這句話不一定真的會執行</li>
+      </ul></div>
+      <div class="bucket"><h3>思考盲點</h3><ul class="list tight">
+        <li>在貧民窟長大，對自己的出身感到自卑。討論開始時較少發言，後來才加入討論</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 18 陪審員 11 號 -->
+<section class="slide juror-page">
+  <div class="juror">
+    <div class="juror-badge">
+      <div class="ord-label">支持無罪序</div>
+      <div class="ord">4</div>
+      <div class="who">11 號陪審員</div>
+      <div class="role">歸化為美國籍的德國鐘錶匠</div>
+    </div>
+    <div>
+      <div class="bucket"><h3>情意／態度</h3><ul class="list tight">
+        <li>聰明且擅長分析、整理筆記並提出自己的疑問</li>
+        <li>被 7 號「從有罪轉為無罪」的無所謂態度激怒，正義凜然地質問：是不是在拿生命當兒戲？若主張有罪就要堅持下去。7 號在他嚴厲的質問下無言以對</li>
+        <li>在討論逐漸演變成人身攻擊時，他站出來提醒大家所擔負的責任——如此暢所欲言的民主形式正是這個國家強盛的原因</li>
+      </ul></div>
+      <div class="bucket"><h3>轉折點</h3><ul class="list tight">
+        <li>對少年為何返回現場提出自己的疑問，並認同有其他可能性，心中出現了合理的懷疑</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 19 陪審員 2 號 -->
+<section class="slide juror-page">
+  <div class="juror">
+    <div class="juror-badge">
+      <div class="ord-label">支持無罪序</div>
+      <div class="ord">5</div>
+      <div class="who">2 號陪審員</div>
+      <div class="role">銀行員</div>
+    </div>
+    <div>
+      <div class="bucket"><h3>情意／態度</h3><ul class="list tight">
+        <li>隨著討論開展，逐漸改變自己的觀點，想知道更多案情細節</li>
+      </ul></div>
+      <div class="bucket"><h3>轉折點</h3><ul class="list tight">
+        <li>認同 8 號依房屋平面圖模擬老人走路的秒數——證詞是 15 秒，實際模擬是 41 秒</li>
+      </ul></div>
+      <div class="bucket"><h3>思考盲點</h3><ul class="list tight">
+        <li>有主觀直覺，但不善於表達想法</li>
+        <li>邏輯謬誤：認為「沒有人能證明他無罪」，因此被 8 號反駁</li>
+        <li>想法易被他人左右</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 20 陪審員 6 號 -->
+<section class="slide juror-page">
+  <div class="juror">
+    <div class="juror-badge">
+      <div class="ord-label">支持無罪序</div>
+      <div class="ord">6</div>
+      <div class="who">6 號陪審員</div>
+      <div class="role">裝潢工人</div>
+    </div>
+    <div>
+      <div class="bucket"><h3>情意／態度</h3><ul class="list tight">
+        <li>正義感強烈、有原則；當證詞疑點越來越多時，願意接受其他合理懷疑的可能性</li>
+        <li>十分尊重長者——3 號對 9 號態度無禮時，他是第一個站出來警告 3 號的人</li>
+        <li>他的反轉促成了平局的轉折點</li>
+      </ul></div>
+      <div class="bucket"><h3>轉折點</h3><ul class="list tight">
+        <li>認同 8 號依房屋平面圖模擬老人走路的秒數——證詞是 15 秒，實際模擬是 41 秒</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 21 陪審員 7 號 -->
+<section class="slide juror-page">
+  <div class="juror">
+    <div class="juror-badge">
+      <div class="ord-label">支持無罪序</div>
+      <div class="ord">7</div>
+      <div class="who">7 號陪審員</div>
+      <div class="role">果醬銷售商、洋基隊球迷</div>
+    </div>
+    <div>
+      <div class="bucket"><h3>情意／態度</h3><ul class="list tight">
+        <li>把想看球賽的享樂利益置於判決之前，不在乎判決結果</li>
+        <li>討論過程漫不經心且煩躁：一開始投「有罪」是因為想趕去球賽，投「無罪」又是因為厭倦了討論——此態度讓 11 號非常反感</li>
+      </ul></div>
+      <div class="bucket"><h3>轉折點</h3><ul class="list tight">
+        <li>為了盡快達成決議，突然反轉改為「無罪」，卻說不出讓人信服的理由——這不算是一種真正的思想轉折</li>
+      </ul></div>
+      <div class="bucket"><h3>思考盲點</h3><ul class="list tight">
+        <li>對案件缺乏深入思考</li>
+        <li>他兩次試著打開電扇，讓人發現打不開的原因——人容易在未深究的情形下，想當然爾地進行歸因</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 22 陪審員 12 號 -->
+<section class="slide juror-page">
+  <div class="juror">
+    <div class="juror-badge">
+      <div class="ord-label">支持無罪序</div>
+      <div class="ord">8／11</div>
+      <div class="who">12 號陪審員</div>
+      <div class="role">廣告企劃師，三度改變投票決定</div>
+    </div>
+    <div>
+      <div class="bucket"><h3>情意／態度</h3><ul class="list tight">
+        <li>一開始對討論心不在焉，在 8 號發表意見時和 3 號玩圈圈叉叉</li>
+        <li>每次對證詞的討論都出現新的合理懷疑，因此被不同證據與論述所說服，三度改變投票決定</li>
+      </ul></div>
+      <div class="bucket"><h3>轉折點</h3><ul class="list tight">
+        <li>第一次投無罪：認同 8 號詢問 4 號電影劇情的討論——4 號在沒有情緒壓力下仍遺忘細節，何況少年被警察訊問時的高壓；並對彈簧刀向上或向下的使用方式存疑</li>
+        <li>當 4 號再次陳述女證人證詞、被質問為什麼認為少年無罪後，隨即改變心意為「有罪」</li>
+        <li>第二次投無罪：聽了 9 號與 4 號的討論，針對鼻旁眼鏡印子這點，對女證人的視力產生疑慮</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 23 陪審員 1 號 -->
+<section class="slide juror-page">
+  <div class="juror">
+    <div class="juror-badge">
+      <div class="ord-label">支持無罪序</div>
+      <div class="ord">9</div>
+      <div class="who">1 號陪審員</div>
+      <div class="role">陪審團團長、中學美式足球教練</div>
+    </div>
+    <div>
+      <div class="bucket"><h3>情意／態度</h3><ul class="list tight">
+        <li>負責主持會議並維持討論秩序，態度公正</li>
+        <li>討論之初雖有自己的立場，但能聽進不同意見</li>
+      </ul></div>
+      <div class="bucket"><h3>轉折點</h3><ul class="list tight">
+        <li>認同 8 號詢問 4 號電影劇情的討論——4 號在沒有情緒壓力下仍遺忘細節，何況少年被警察訊問時的高壓；並對彈簧刀的使用方式存疑</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 24 陪審員 10 號 -->
+<section class="slide juror-page">
+  <div class="juror">
+    <div class="juror-badge">
+      <div class="ord-label">支持無罪序</div>
+      <div class="ord">10</div>
+      <div class="who">10 號陪審員</div>
+      <div class="role">修車廠業主</div>
+    </div>
+    <div>
+      <div class="bucket"><h3>情意／態度</h3><ul class="list tight">
+        <li>氣勢凌人且頑固偏執，喜歡大聲嚷嚷</li>
+        <li>懷有階級偏見，沒有耐心聽大家討論；因偏見影響判斷，不重視推理過程</li>
+        <li>最後發表的階級偏見言論引來了所有人的反感</li>
+      </ul></div>
+      <div class="bucket"><h3>轉折點</h3><ul class="list tight">
+        <li>聽了 9 號與 4 號的討論，針對鼻旁眼鏡印子這點，對女證人的視力產生疑慮</li>
+      </ul></div>
+      <div class="bucket"><h3>思考盲點</h3><ul class="list tight">
+        <li>負面的情意態度與刻板印象，讓他的思考有很多武斷與偏見</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 25 陪審員 4 號 -->
+<section class="slide juror-page">
+  <div class="juror">
+    <div class="juror-badge">
+      <div class="ord-label">支持無罪序</div>
+      <div class="ord">11</div>
+      <div class="who">4 號陪審員</div>
+      <div class="role">股票經紀人</div>
+    </div>
+    <div>
+      <div class="bucket"><h3>情意／態度</h3><ul class="list tight">
+        <li>討論過程理性冷靜，只依據有說服力的證據來下判斷</li>
+      </ul></div>
+      <div class="bucket"><h3>轉折點</h3><ul class="list tight">
+        <li>聽了 9 號的觀察，針對女證人鼻旁的眼鏡印子，對其視力（未戴眼鏡目擊）產生合理懷疑</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 26 陪審員 3 號 -->
+<section class="slide juror-page">
+  <div class="juror">
+    <div class="juror-badge">
+      <div class="ord-label">支持無罪序</div>
+      <div class="ord">12</div>
+      <div class="who">3 號陪審員</div>
+      <div class="role">通訊服務公司老闆</div>
+    </div>
+    <div>
+      <div class="bucket"><h3>情意／態度</h3><ul class="list tight">
+        <li>討論時不自覺帶入個人經驗與偏見：因自身與兒子不和，對少年弒父案懷有深刻成見，多次自相矛盾發言，無法理性評估</li>
+        <li>討論中曾衝動地對 8 號說「我要殺了你！」——易情緒性發言</li>
+      </ul></div>
+      <div class="bucket"><h3>轉折點</h3><ul class="list tight">
+        <li>是十二位陪審員中最後一位表示少年無罪的</li>
+        <li>想到兒子就顯出憤恨與創傷，但把合照放在皮夾裡顯示他其實珍惜父子關係；從他衝動撕照片的行為可以推想，父子衝突未必是兒子單方面造成，也可能因他的衝動傷害了兒子</li>
+        <li>意識到自己常有衝動發言與決定，最後冷靜下來做出「無罪」決定</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 27 電影小結 -->
+<section class="slide">
+  <h2>電影小結：影響思考的因素</h2>
+  <ul class="list">
+    <li>思考者的<span class="gold">生命背景與經驗</span></li>
+    <li>思考者所處的<span class="gold">外在情境</span></li>
+    <li>思考者的<span class="gold">身心靈狀態</span></li>
+  </ul>
+</section>
+
+<!-- 28 情意態度與思考盲點 -->
+<section class="slide">
+  <h2>情意態度與思考盲點</h2>
+  <ul class="list">
+    <li><span class="gold">個人生命背景</span>：導致的成見與意識形態</li>
+    <li><span class="gold">目的與動機</span>：不純正與匱乏</li>
+    <li><span class="gold">靈性層面</span>：苦毒、愛的匱乏、無明、冥頑不靈</li>
+    <li><span class="gold">感性層面</span>：漫不經心、心浮氣躁、從眾</li>
+    <li><span class="gold">知性層面</span>：舉證方向錯置</li>
+  </ul>
+</section>
+
+<!-- 29 對話中的情緒 -->
+<section class="slide big-say">
+  <h2>對話中的情緒與思考盲點</h2>
+  <p class="line" style="margin-top:.6em;">只有<em>對立</em>，沒有<em>對話</em></p>
+  <p class="line">只有<em>情緒</em>，沒有<em>思考</em></p>
+</section>
+
+<!-- 30 值得稱道之處 -->
+<section class="slide">
+  <h2>陪審員值得稱道之處</h2>
+  <ul class="list">
+    <li><span class="gold">目的與動機</span>：在意判決公正，關心他人死生</li>
+    <li><span class="gold">感性層面</span>：不受主觀情緒干擾、專注、耐煩</li>
+    <li><span class="gold">知性層面</span>：無罪推定、大膽假設小心求證、推理符合邏輯、BRD</li>
+    <li><span class="gold">對話層面</span>：道德勇氣、同理、對話的堅定與溫柔</li>
+    <li><span class="gold">靈性層面</span>：支持上述各層面的自覺、反思與努力</li>
+  </ul>
+</section>
+
+<!-- 31 何謂思考素養 -->
+<section class="slide">
+  <h2>何謂思考素養？</h2>
+  <blockquote>廣義言，以理性的批判、靈性的覺察，追求智慧的態度從事思考，或對自己的思考進行思考之謂。</blockquote>
+  <p class="small" style="margin-top:.6em;">思考素養包含三個子題：</p>
+  <div class="cards c3" style="margin-top:.4em; flex:0 1 auto;">
+    <div class="card">
+      <h3>知識與技能</h3>
+      <p>理解正確思考的基本原理與方法，並認識影響自己思考的可能因素（世界觀、價值觀、意識型態、偏見、謬誤等）。</p>
+    </div>
+    <div class="card">
+      <h3>情意與態度</h3>
+      <p>覺察阻礙正確思考的情意與態度（先入為主、爭輸贏、鄉愿、私欲等），體認並涵養有益正確思考的情意與態度（客觀、開放、公正、勇氣等）。</p>
+    </div>
+    <div class="card">
+      <h3>後設思考</h3>
+      <p>抽象而言，指對思考進行思考，以掌握思考的本質、特性以及正確思考應具備的素養。具體而言，對自己的思考模式與習慣進行反思與調整，以提升自己的思考素養。</p>
+    </div>
+  </div>
+  <p class="small" style="margin-top:.8em;">觀看《十二怒漢》，從而探究思考的內涵，正是在對思考進行後設思考。</p>
+</section>
+
+<!-- 32 Part 2 章節頁 -->
+<section class="slide section">
+  <p class="kicker">PART TWO</p>
+  <div class="big-num">貳</div>
+  <h1>思考素養的三個子題</h1>
+  <p class="sub">思考為何重要？思考就夠了嗎？</p>
+</section>
+
+<!-- 33 子曰 -->
+<section class="slide big-say">
+  <p class="lead" style="letter-spacing:.4em;">子曰</p>
+  <p class="line" style="margin-top:.4em;">學而不思則<em>罔</em><br>思而不學則<em>殆</em></p>
+  <p class="small" style="margin-top:1.5em;">《論語．為政》</p>
+</section>
+
+<!-- 34 思考的重要性 -->
+<section class="slide">
+  <h2>思考的重要性</h2>
+  <p>很多時候人有直覺的想法，但不知背後的所以然，也無法清楚論述。</p>
+  <blockquote style="margin-top:1em;">理未易明<br>事未易察<br>善未易辨</blockquote>
+</section>
+
+<!-- 35 思考需要練習 -->
+<section class="slide">
+  <h2>思考需要練習與精進</h2>
+  <p class="lead">思考本身也需要修正與學習——<br>亦即透過<span class="gold">後設思考</span>，精進<span class="gold">思考素養</span>。</p>
+  <p style="margin-top:1em;">「思考素養」與「後設思考」相互為用、互為因果：人在思考特定議題的過程中進行後設思考，便有機會調整自己思考的情意與態度，磨練思考的知識與技能，從而涵泳與提升思考素養。</p>
+</section>
+
+<!-- 36 思考素養三子題 -->
+<section class="slide">
+  <h2>思考素養的三個子題</h2>
+  <div class="cards c3" style="flex:0 1 auto;">
+    <div class="card">
+      <h3>一、知識與技能</h3>
+      <p>思考的目標：辨明事實．價值判斷．司法判決<br>相應的知識、方法與技能：事實釐清．價值思辨．邏輯推理</p>
+    </div>
+    <div class="card">
+      <h3>二、情意與態度</h3>
+      <p>立場不必中立，態度必須公正<br>情意態度的涵泳，以靈性修養——對起心動念的察覺與關注——為基礎</p>
+    </div>
+    <div class="card">
+      <h3>三、後設思考</h3>
+      <p>對思考進行思考：系統性地掌握思考的本質與特性，也在思考當下反思、調整自己的思考模式</p>
+    </div>
+  </div>
+  <p class="small" style="margin-top:1em;">無論生活、生命各種課題的探究，都必須以思考素養為基礎。</p>
+</section>
+
+<!-- 37 思考的目標 -->
+<section class="slide">
+  <h2>思考的目標</h2>
+  <ul class="list">
+    <li>辨明事實</li>
+    <li>價值判斷</li>
+    <li>司法判決</li>
+  </ul>
+</section>
+
+<!-- 38 知識方法技能 -->
+<section class="slide">
+  <h2>思考的知識、方法與技能</h2>
+  <ul class="list">
+    <li>如何<span class="gold">辨明事實</span>，認出真相？</li>
+    <li>如何進行<span class="gold">價值思辨</span>？</li>
+    <li>如何從事<span class="gold">司法判決</span>？——舉證責任．刑事判決三階段．邏輯推理</li>
+  </ul>
+</section>
+
+<!-- 39 如何辨明事實 -->
+<section class="slide">
+  <h2>如何辨明事實，認出真相？</h2>
+  <div class="local-clip" style="margin-top:.5em;">
+    <span class="tag">小組討論</span>
+    <p style="margin:0;">關於事實與真相的辨明，人會遇到哪些困難？</p>
+  </div>
+  <p class="small" style="margin-top:1em;">小組報告與回應</p>
+</section>
+
+<!-- 40 眼見為憑 -->
+<section class="slide">
+  <h2>眼見為憑？眼見不足以為憑！</h2>
+  <div class="two-col" style="flex:0 1 auto;">
+    <div style="text-align:center;">
+      <span class="imgframe"><img src="assets/d2_illusion1.gif" alt="繆氏錯覺" style="max-height:38vh;"></span>
+      <div class="cap">兩條線段其實一樣長（Müller-Lyer 錯覺）</div>
+    </div>
+    <div style="text-align:center;">
+      <span class="imgframe"><img src="assets/d2_illusion2.jpeg" alt="明暗錯覺" style="max-height:38vh;"></span>
+      <div class="cap">上下兩面的灰階其實相同——遮住交界處試試看</div>
+    </div>
+  </div>
+</section>
+
+<!-- 41 真相需要摸索 -->
+<section class="slide">
+  <h2>真相需要摸索！</h2>
+  <div class="two-col">
+    <div>
+      <div class="local-clip">
+        <span class="tag">課堂影片</span>
+        <p style="margin:0;">《十二怒漢》「電風扇」片段——7 號兩次打不開電扇，眾人想當然爾地歸因；後來才發現真正的原因。</p>
+        <p class="small" style="margin:0.6em 0 0;">原工作坊播放之本機影片檔（12怒漢片段-電風扇）</p>
+      </div>
+    </div>
+    <div>
+      <p class="lead">人容易在未深究的情形下，<br>想當然爾地進行歸因。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 42 片面之詞 -->
+<section class="slide">
+  <h2>什麼是真相？片面之詞不足為憑！</h2>
+  <div style="text-align:center; flex:0 1 auto;">
+    <span class="imgframe"><img src="assets/d2_truth.jpeg" alt="蠟筆漫畫：片面之詞" style="max-height:58vh;"></span>
+    <div class="cap">看起來「毫無說服力的辯解」，往往只是因為我們沒看到十分鐘前發生的事。</div>
+  </div>
+</section>
+
+<!-- 43 自我中心與觀點 -->
+<section class="slide">
+  <h2>自我中心、觀點、認同與事實</h2>
+  <ul class="list">
+    <li>日動 vs. 地動</li>
+    <li>地球 vs. 水球</li>
+    <li>中國人 vs. 大陸人</li>
+  </ul>
+  <div class="local-clip" style="margin-top:1em;">
+    <span class="tag">課堂影片</span>
+    <p style="margin:0;">「觀點與真相」——同一件事，從不同位置看見不同的樣貌。</p>
+    <p class="small" style="margin:0.6em 0 0;">原工作坊播放之本機影片檔（觀點與真相）</p>
+  </div>
+</section>
+
+<!-- 44 媒體與真相 -->
+<section class="slide">
+  <div class="two-col">
+    <div>
+      <h2>媒體與真相</h2>
+      <p class="lead">媒體知道如何利用真相的繁複，塑造出有利於它自身、或它想操弄的真相樣貌。</p>
+    </div>
+    <div style="text-align:center;">
+      <span class="imgframe darkok"><img src="assets/d2_media.jpg" alt="沉思剪影" style="max-height:48vh;"></span>
+    </div>
+  </div>
+</section>
+
+<!-- 45 真相的剪接 -->
+<section class="slide dense">
+  <h2>真相的剪接：「唐僧來台灣」</h2>
+  <div class="gallery" style="flex:0 1 auto;">
+    <span class="imgframe"><img src="assets/d2_tangseng0.jpg" alt="唐僧來台灣 1"></span>
+    <span class="imgframe"><img src="assets/d2_tangseng1.jpg" alt="唐僧來台灣 2"></span>
+    <span class="imgframe"><img src="assets/d2_tangseng2.jpg" alt="唐僧來台灣 3"></span>
+    <span class="imgframe"><img src="assets/d2_tangseng3.jpg" alt="唐僧來台灣 4"></span>
+    <span class="imgframe"><img src="assets/d2_tangseng4.jpg" alt="唐僧來台灣 5"></span>
+    <span class="imgframe"><img src="assets/d2_tangseng5.jpg" alt="唐僧來台灣 6"></span>
+    <span class="imgframe"><img src="assets/d2_tangseng6.jpg" alt="唐僧來台灣 7"></span>
+    <span class="imgframe"><img src="assets/d2_tangseng7.jpg" alt="唐僧來台灣 8"></span>
+  </div>
+  <p class="cap" style="margin-top:.8em;">同一組素材，剪接順序不同，故事就完全不同——剪接可以製造「真相」。</p>
+</section>
+
+<!-- 46 盡信媒體 -->
+<section class="slide">
+  <div class="two-col">
+    <div>
+      <h2>盡信媒體不如無媒體</h2>
+      <p class="lead">盡信書不如無書；<br>盡信媒體不如無媒體。</p>
+      <p style="margin-top:.8em;">你有看新聞的習慣嗎？</p>
+      <blockquote>If you don't read the newspaper, you're uninformed. If you read the newspaper, you're mis-informed.<cite>——常被歸於馬克．吐溫（Mark Twain），原始出處待查證</cite></blockquote>
+    </div>
+    <div style="text-align:center;">
+      <span class="imgframe"><img src="assets/d2_marktwain.jpg" alt="八耐舜子漫畫" style="max-height:56vh;"></span>
+      <div class="cap">「不看新聞與世界脫節，看了新聞與事實脫節」（八耐舜子）</div>
+    </div>
+  </div>
+</section>
+
+<!-- 47 洗腦與真相 -->
+<section class="slide">
+  <h2>洗腦與真相：《另類數學》</h2>
+  <div class="video-wrap">
+    <iframe src="https://www.youtube-nocookie.com/embed/Zh3Yz3PiXZw" title="Alternative Math | Short Film"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  </div>
+  <p style="text-align:center; max-width:none;"><a class="vid-link" href="https://www.youtube.com/watch?v=Zh3Yz3PiXZw" target="_blank" rel="noopener">《Alternative Math》短片（Ideaman Studios, 2017）↗</a></p>
+</section>
+
+<!-- 48 History vs Historiography -->
+<section class="slide">
+  <h2>History ≠ Historiography</h2>
+  <blockquote>任何人為了瞭解歷史，都不免在海量的史料中，人為地揀選那些他覺得重要的部分，以邏輯鍊條串起，成一家之言。隨著時間的經過，大家逐漸忘了這個人為的過程，而開始把一些既成的觀點當作事實本身來看待，轉述者甚至開始以一種當事人、見證人的口吻去傳播他們所相信的東西。<cite>——張若彤</cite></blockquote>
+</section>
+
+<!-- 49 歷史二層面三向度 -->
+<section class="slide">
+  <h2>歷史二層面、三向度</h2>
+  <div class="cards c2" style="flex:0 1 auto;">
+    <div class="card">
+      <h3>History（歷史本身）</h3>
+      <p>真實歷史事件錯綜複雜、各種力量交織、光怪陸離、難以盡道的面向。</p>
+    </div>
+    <div class="card">
+      <h3>Historiography（歷史書寫）</h3>
+      <p>主導書寫的往往是政治權力與商業利益（成者為王，敗者為寇）。</p>
+      <p>不同背景階層的人所體驗或接觸的面向（瞎子摸象）。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 50 歷史真相 -->
+<section class="slide">
+  <div class="two-col">
+    <div>
+      <h2>歷史真相？剪不斷，理還亂</h2>
+      <ul class="list tight">
+        <li>中華人民共和國與中華民國</li>
+        <li>共匪？蔣匪？</li>
+        <li>何光滬：「貴陽的紀念塔，國人的歷史觀」</li>
+        <li>成者為王，敗者為寇？</li>
+      </ul>
+    </div>
+    <div style="text-align:center;">
+      <span class="imgframe"><img src="assets/d2_guiyang.jpg" alt="兩岸歷史課本插畫" style="max-height:50vh;"></span>
+      <div class="cap">同一段過去，兩本不同的「歷史」。</div>
+    </div>
+  </div>
+</section>
+
+<!-- 51 228 -->
+<section class="slide">
+  <div class="two-col">
+    <div>
+      <h2>什麼是二二八的真相？</h2>
+      <ul class="list tight">
+        <li>蔣萬安辦二二八紀念會，如納粹後裔紀念猶太人大屠殺？</li>
+        <li>張若彤與許劍虹的非主流史觀</li>
+      </ul>
+    </div>
+    <div style="text-align:center;">
+      <span class="imgframe"><img src="assets/d2_228.jpg" alt="二二八的十個迷思與真相" style="max-height:50vh;"></span>
+    </div>
+  </div>
+</section>
+
+<!-- 52 宗教靈異與終極事實 -->
+<section class="slide">
+  <div class="two-col">
+    <div>
+      <h2>宗教靈異現象與思考</h2>
+      <p class="lead">終極事實的真相？</p>
+      <ul class="list tight">
+        <li>人死如燈滅 vs. 死後生命</li>
+        <li>末世 vs. 來世</li>
+        <li>創造 vs. 演化</li>
+        <li>虛無 vs. 生命有意義</li>
+      </ul>
+    </div>
+    <div style="text-align:center;">
+      <span class="imgframe"><img src="assets/d2_rel1.jpg" alt="舍利子哪來？新聞畫面" style="max-height:48vh;"></span>
+      <div class="cap">「舍利子哪來？」——宗教現象也需要事實的釐清與思辨。</div>
+    </div>
+  </div>
+</section>
+
+<!-- 53 價值思辨 -->
+<section class="slide dense">
+  <h2>如何進行價值思辨？</h2>
+  <div class="two-col top" style="flex:0 1 auto;">
+    <div>
+      <h3>價值思辨的知識與方法</h3>
+      <ul class="list tight">
+        <li><span class="gold">倫理價值</span>：道德哲學或倫理學</li>
+        <li><span class="gold">應用倫理學</span></li>
+        <li><span class="gold">健康促進</span>：穿越時空的營養師．藥你生病．膽固醇迷思</li>
+      </ul>
+      <div style="display:flex; gap:12px; margin-top:1em;">
+        <span class="imgframe" style="flex:0 0 auto;"><img src="assets/d2_health1.jpg" alt="正義：一場思辯之旅" style="max-height:24vh;"></span>
+        <span class="imgframe" style="flex:0 0 auto;"><img src="assets/d2_health3.jpg" alt="藥你生病" style="max-height:24vh;"></span>
+        <span class="imgframe" style="flex:0 0 auto;"><img src="assets/d2_health2.jpeg" alt="要瘦就瘦，要健康就健康" style="max-height:24vh;"></span>
+      </div>
+      <div class="cap">《正義：一場思辯之旅》（Michael Sandel）．《藥你生病》．《要瘦就瘦，要健康就健康》（賴宇凡）</div>
+    </div>
+    <div>
+      <div class="video-wrap" style="width:100%;">
+        <iframe src="https://www.youtube-nocookie.com/embed/KXXaqq1NLSI" title="Future Shorts - The Black Hole"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+      <p style="text-align:center; max-width:none;"><a class="vid-link" href="https://www.youtube.com/watch?v=KXXaqq1NLSI" target="_blank" rel="noopener">《The Black Hole》短片（Future Shorts, 2008）——貪婪與價值的寓言 ↗</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- 54 BRD 與舉證責任 -->
+<section class="slide">
+  <h2>如何進行司法判決？BRD 與舉證責任</h2>
+  <div class="cards c2" style="flex:0 1 auto;">
+    <div class="card">
+      <h3>刑事案件</h3>
+      <p>檢察官的舉證責任：證明犯罪事實的證據<span class="gold">無可懷疑</span>。</p>
+      <p>陪審團的舉證責任：指出犯罪事實的證據有<span class="gold">可合理懷疑</span>之處。</p>
+    </div>
+    <div class="card">
+      <h3>民事案件</h3>
+      <p>主張權利的原告負舉證責任。例如原告以有借據為憑要求對方還錢——借貸乃<span class="gold">要物契約</span>，契約成立以標的物交付為條件；買賣則是<span class="gold">諾成契約</span>，以雙方合意為成立條件。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 55 殺人罪條文 -->
+<section class="slide">
+  <h2>以殺人罪之判決為例</h2>
+  <div class="cards c2" style="flex:0 1 auto;">
+    <div class="card">
+      <h3>中華民國刑法 第 271 條</h3>
+      <p>殺人者，處死刑、無期徒刑或十年以上有期徒刑。</p>
+      <p>前項之未遂犯罰之。</p>
+      <p>預備犯第一項之罪者，處二年以下有期徒刑。</p>
+    </div>
+    <div class="card">
+      <h3>中華民國刑法 第 275 條（節錄）</h3>
+      <p>受他人囑託或得其承諾而殺之者，處一年以上七年以下有期徒刑。</p>
+      <p>教唆或幫助他人使之自殺者，處五年以下有期徒刑。</p>
+      <p>前二項之未遂犯罰之。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 56 刑事判決三階段 -->
+<section class="slide">
+  <h2>刑事判決三階段</h2>
+  <div class="stages">
+    <div class="stage">
+      <h3>① 構成要件</h3>
+      <p><span class="gold">客觀</span>：行為、結果、因果</p>
+      <p><span class="gold">主觀</span>：故意或過失</p>
+    </div>
+    <div class="stage-arrow"><span class="a">→</span><span class="t">推定</span></div>
+    <div class="stage">
+      <h3>② 違法性</h3>
+      <p>阻卻違法事由可<span class="gold">推翻</span></p>
+      <p class="small">例：刑法 §21-1「依法令之行為，不罰」</p>
+    </div>
+    <div class="stage-arrow"><span class="a">→</span><span class="t">推定</span></div>
+    <div class="stage">
+      <h3>③ 罪責性</h3>
+      <p>阻卻罪責事由可<span class="gold">推翻</span></p>
+      <p class="small">例：刑法 §18-1「未滿十四歲人之行為，不罰」</p>
+    </div>
+  </div>
+  <p class="small">構成要件該當則推定違法，故第二階層檢視有無阻卻違法事由；違法則推定有罪責，故第三階層檢視有無阻卻罪責事由。</p>
+</section>
+
+<!-- 57 邏輯推理 -->
+<section class="slide">
+  <h2>邏輯推理</h2>
+  <div class="two-col">
+    <div>
+      <p class="lead">邏輯推理是思考最基本的功夫——<br>說話、寫作、談判、溝通與問題解決的共同底層。</p>
+      <p class="small" style="margin-top:1em;">延伸讀物（原工作坊推薦）：<br>《邏輯力 Being Logical: A Guide to Good Thinking》（D. Q. McInerny）<br>《5 分鐘孩子的邏輯思維訓練》（索尼國際教育）</p>
+    </div>
+    <div style="display:flex; gap:14px; justify-content:center;">
+      <span class="imgframe" style="flex:0 0 auto;"><img src="assets/d2_logic1.jpg" alt="邏輯力書封" style="max-height:46vh;"></span>
+      <span class="imgframe" style="flex:0 0 auto;"><img src="assets/d2_logic2.jpg" alt="5分鐘孩子的邏輯思維訓練書封" style="max-height:46vh;"></span>
+    </div>
+  </div>
+</section>
+
+<!-- 58 先驗態度 -->
+<section class="slide">
+  <h2>思考的情意與態度：先驗態度與立場影響行動</h2>
+  <ul class="list">
+    <li>人們在開始討論特定議題之前，往往已經有特定立場或態度。</li>
+    <li>例如陪審團一開始時，大部分人覺得不需討論即可表決，且都認為答案很清楚：少年有罪。8 號則不那麼確定，且認為事關生死，不能不討論就做出結論。</li>
+    <li>態度方面：有人心不在焉，有人心浮氣躁，有人對不同意見容易情緒激動，有人先入為主或有刻板印象，也有人態度開放溫和，把別人的事當事。</li>
+    <li>這些都深遠地影響人的後續思考與對話。</li>
+  </ul>
+</section>
+
+<!-- 59 情意態度對照 -->
+<section class="slide dense">
+  <h2>思考的情意與態度</h2>
+  <div class="contrast">
+    <div class="side neg">
+      <h3>思考的逆風</h3>
+      <ul class="list tight">
+        <li>傲慢</li>
+        <li>自我中心而無自覺</li>
+        <li>各種認同</li>
+        <li>負面情緒</li>
+        <li>意識形態</li>
+        <li>後真相與民粹</li>
+      </ul>
+    </div>
+    <div class="side pos">
+      <h3>思考的順風</h3>
+      <ul class="list tight">
+        <li>謙卑</li>
+        <li>心中有他者</li>
+        <li>寬容多元，無差別心</li>
+        <li>高 EQ</li>
+        <li>理性反思</li>
+        <li>熱愛真理與道德勇氣</li>
+      </ul>
+    </div>
+  </div>
+  <div class="cards c2" style="margin-top:1em; flex:0 1 auto;">
+    <div class="card">
+      <h3 style="font-size:1.05rem;">意識形態</h3>
+      <p class="small">因著個人經驗、各種認同、先入為主的信念、習慣性的觀點等所形成之固化的價值取向、思維慣性或模式。</p>
+    </div>
+    <div class="card">
+      <h3 style="font-size:1.05rem;">後真相（post-truth）</h3>
+      <p class="small">2016 年《牛津英語詞典》年度詞彙：「連結或指陳情況時，訴諸情感及個人信念，比陳述客觀事實更能形塑輿論（public opinion）。」</p>
+    </div>
+  </div>
+</section>
+
+<!-- 60 立場不必中立 總起 -->
+<section class="slide big-say">
+  <p class="line">立場<em>不必中立</em><br>態度<em>必須公正</em></p>
+  <p class="small" style="margin-top:1.5em;">面對爭議性議題時，思考的態度與涵養非常重要。<br>不同立場的人若能進行同理對話、修正彼此的立場，將能趨近更完整的真理。（手冊附錄）</p>
+</section>
+
+<!-- 61 立場不必中立 -->
+<section class="slide">
+  <h2>立場不必中立</h2>
+  <ul class="list">
+    <li>沒有立場，往往是鄉愿或「西瓜偎大邊」的立場。</li>
+    <li>不要害怕採取立場，彷彿不認同任何立場就是最好的立場。</li>
+    <li>應採取當下所能達到的最適當、客觀與接近真理的立場。</li>
+    <li>採取立場要有道德勇氣——道德要求於人的正是「擇善固執」：不是堅持保守或開放，而是選擇「善」的方向，然後屹立不搖。</li>
+  </ul>
+  <blockquote style="margin-top:.8em;">「立場不必中立」意味著人對當下所掌握的真理，要有一種「雖千萬人吾亦往矣」的投身與承擔的勇氣。</blockquote>
+</section>
+
+<!-- 62 反思態度 -->
+<section class="slide">
+  <h2>對人我立場保持反思態度</h2>
+  <ul class="list">
+    <li>問題是：誰有把握自己的立場就是絕對的真理？我們所採取的立場不一定等於絕對真理——無論自己或他人。</li>
+    <li>因此，應以審慎的態度，批判反思自己及他人的立場。</li>
+    <li>批判反思的最好態度就是<span class="gold">公正</span>。</li>
+  </ul>
+  <blockquote style="margin-top:.8em;">苟日新，日日新，又日新。<cite>——《禮記．大學》引湯之盤銘</cite></blockquote>
+</section>
+
+<!-- 63 態度公正（一） -->
+<section class="slide">
+  <h2>態度必須公正（一）：對自己的立場</h2>
+  <ul class="list">
+    <li>不特別偏袒自己的立場，心中願意向新的證據開放。</li>
+    <li>平心反思：仔細檢視新證據之後，是否讓我更加確定自己原先的立場？抑或它挑戰了我的原有立場，邀請我重構新的想法？</li>
+    <li>是否有任何新的經驗或論證挑戰了我目前的立場（實然倫理）？又是否有任何理由要求我去檢視：它是否仍是我該相信的應然倫理？</li>
+  </ul>
+</section>
+
+<!-- 64 態度公正（二） -->
+<section class="slide">
+  <h2>態度必須公正（二）：對他人的立場</h2>
+  <ul class="list">
+    <li>愈是敏感與糾結的話題，對不同立場愈容易有先入為主的排斥感——不要讓它影響你傾聽與同理的態度。</li>
+    <li>平心反思：不要刻意忽略支持對方觀點的論據，或誇大對方觀點的缺失。</li>
+    <li>公正態度就是超越主觀好惡，以客觀的精神評估他人立場的正反論據，內心真正關懷的是：怎樣的立場才更接近真理？</li>
+  </ul>
+</section>
+
+<!-- 65 思考的偵察兵 -->
+<section class="slide">
+  <h2>思考的偵察兵</h2>
+  <div class="video-wrap">
+    <iframe src="https://www.youtube-nocookie.com/embed/3MYEtQ5Zdn8" title="Why scout mindset is crucial to good judgment | Julia Galef | TEDxPSU"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  </div>
+  <p style="text-align:center; max-width:none;"><a class="vid-link" href="https://www.youtube.com/watch?v=3MYEtQ5Zdn8" target="_blank" rel="noopener">Julia Galef：士兵心態 vs. 偵察兵心態（TEDxPSU）↗</a></p>
+</section>
+
+<!-- 66 知性與感性 -->
+<section class="slide">
+  <h2>思考中的靈性修養：知性與感性</h2>
+  <div class="cards c2" style="flex:0 1 auto;">
+    <div class="card">
+      <h3>思考中的知性</h3>
+      <p>人要進行好的思考，必須在知性層次想清楚思考的目標、學習思考的知識與方法、練習思考的技能。</p>
+      <p class="small">——但，是什麼支持人這麼做？</p>
+    </div>
+    <div class="card">
+      <h3>思考的感性</h3>
+      <p>思考的情意與態度就是思考感性的部分。感性引導知性：認清思考的目標、掌握思考的知識與方法，也賦予人練習思考技能的動機。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 67 靈性修養為基礎 -->
+<section class="slide">
+  <h2>知性與感性，以靈性修養為基礎</h2>
+  <ul class="list">
+    <li>人熱愛真理、渴望追求真相的動機是什麼？可能是知識的好奇或其他他律動機，也可能是更高的動機——例如敬畏真理、愛人如己。</li>
+    <li>如果沒有更高的動機，真理跟真相可能都抵不過經濟的利益、或社會與政治的壓力。</li>
+    <li>練習需要持之以恆的靈性堅持，也需要在每個當下的警醒。</li>
+    <li>情意與態度的涵泳，需要時時刻刻對起心動念的察覺與關注——這一切就都涉及靈性修養。</li>
+  </ul>
+</section>
+
+<!-- 68 後設思考 -->
+<section class="slide">
+  <h2>後設思考</h2>
+  <ul class="list">
+    <li><span class="gold">系統性的後設思考</span>：掌握思考的本質、特性，以及正確思考應具備的素養。</li>
+    <li><span class="gold">思考當下的後設思考</span>：對自己的思考模式與習慣進行反思與調整。</li>
+    <li><span class="gold">後設思考與靈性修養</span>：思考者要對自己思考時背後的情意與態度保持高度省思與察覺，俯察內在的各種起心動念。</li>
+  </ul>
+</section>
+
+<!-- 69 思考素養與生命教育 -->
+<section class="slide">
+  <h2>思考素養與生命教育</h2>
+  <p>包含「知識與技能」、「情意與態度」與「後設思考」三個子題的「思考素養」，不僅僅是生命教育的一項核心素養，更是學生學習各種「國民核心素養」時所不可或缺的一項<span class="gold">基礎素養</span>。</p>
+  <p>它幫助人發掘與面對生活中的各種問題與挑戰，也是探索並養成生命教育其他四項核心素養所不可或缺的要素。</p>
+</section>
+
+<!-- 70 結語 -->
+<section class="slide big-say">
+  <div class="ornament" style="width:90px; height:3px; background:linear-gradient(90deg,transparent,var(--accent),transparent); margin:0 auto 2em;"></div>
+  <p class="line">以<em>理性的批判</em>、<em>靈性的覺察</em>，<br>以追求智慧的態度從事思考。</p>
+  <p class="small" style="margin-top:2em;">——孫效智，〈哲學思考〉講義（2023）</p>
+</section>
+
+<!-- 71 引用來源 -->
+<section class="slide dense">
+  <h2>引用來源</h2>
+  <ol class="references">
+    <li>孫效智（2023）。〈哲學思考〉。生命教育專業發展工作坊講義（2023 年 2 月 18 日），國立臺灣大學生命教育研發育成中心。（原講題「哲學思考」，本簡報依下列指引改稱「思考素養」）</li>
+    <li>《大專校院生命教育五大核心素養導論式課程學習評量指標參考指引》（1150127 版，尚未定案）——「思考素養」主題及其三個子題（知識與技能、情意與態度、後設思考）之架構依據。</li>
+    <li>孫效智（2009）。〈主編的話——生命教育的學術研究與真理追求〉。《生命教育研究》，1(1)，頁 ix–x。</li>
+    <li>孫效智（2013）。〈生命教育核心素養的建構與十二年國教課綱的發展〉。載於國立臺灣大學生命教育研發育成中心、社團法人台灣生命教育學會主辦「第十屆生命教育學術研討會——人的培育：以生命教育翻轉教育」論文集，頁 25。</li>
+    <li>Lumet, S.（導演）（1957）。《十二怒漢》（12 Angry Men）［電影］。United Artists。</li>
+    <li>《論語．為政》：「學而不思則罔，思而不學則殆。」</li>
+    <li>《禮記．大學》引湯之盤銘：「苟日新，日日新，又日新。」</li>
+    <li>張若彤：History ≠ Historiography 段落引文（轉引自原工作坊簡報）。</li>
+    <li>Oxford Languages（2016）。Word of the Year: post-truth。</li>
+    <li>中華民國刑法第 18、21、271、275 條。全國法規資料庫。</li>
+    <li>Ideaman Studios（2017）。Alternative Math［短片］。<a href="https://www.youtube.com/watch?v=Zh3Yz3PiXZw" target="_blank" rel="noopener">youtube.com/watch?v=Zh3Yz3PiXZw</a></li>
+    <li>Sansom, P., &amp; Williams, O.（2008）。The Black Hole［短片］。Future Shorts。<a href="https://www.youtube.com/watch?v=KXXaqq1NLSI" target="_blank" rel="noopener">youtube.com/watch?v=KXXaqq1NLSI</a></li>
+    <li>Galef, J.（2016）。Why you think you're right—even if you're wrong（TEDxPSU）。<a href="https://www.youtube.com/watch?v=3MYEtQ5Zdn8" target="_blank" rel="noopener">youtube.com/watch?v=3MYEtQ5Zdn8</a></li>
+    <li>McInerny, D. Q.《邏輯力：Being Logical—A Guide to Good Thinking》。久石文化。／索尼國際教育《5 分鐘孩子的邏輯思維訓練》。小熊出版。／Sandel, M.《正義：一場思辯之旅》。／Moynihan, R., &amp; Cassels, A.《藥你生病》（Selling Sickness）。／賴宇凡《要瘦就瘦，要健康就健康》。</li>
+    <li>「不看新聞／看新聞」語錄常被歸於 Mark Twain，原始出處無可考（待查證）。「理未易明、事未易察、善未易辨」出處待查證。</li>
+    <li>其餘插圖（錯覺圖、蠟筆漫畫、八耐舜子漫畫、新聞畫面、兩岸課本插畫等）均轉載自原工作坊簡報所用素材，版權屬原作者。</li>
+  </ol>
+</section>
+
+<!-- 72 謝謝 -->
+<section class="slide closing">
+  <h1 style="font-size:clamp(2rem,4vw,3.4rem);">Thanks for your attention!</h1>
+  <div class="ornament"></div>
+  <p class="lead">臺大生命教育研發育成中心　孫效智教授</p>
+</section>
+
+</div>
+
+<!-- 點擊推進區 -->
+<div class="click-zones" id="clickZones">
+  <div class="click-zone" onclick="prevSlide()" title="前一頁"></div>
+  <div class="click-zone" onclick="nextSlide()" title="下一頁"></div>
+</div>
+
+<div class="progress-bar" id="progress"></div>
+<div class="page-indicator"><span id="curr">1</span> / <span id="total">?</span></div>
+<div class="nav-arrows">
+  <button onclick="prevSlide()" aria-label="上一頁">‹</button>
+  <button onclick="nextSlide()" aria-label="下一頁">›</button>
+</div>
+<button class="fs-toggle" onclick="toggleFullscreen()" aria-label="全螢幕" title="全螢幕（F）">⛶</button>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ===== 導覽（動態頁碼：絕不寫死 slide 索引） ===== */
+const slides = document.querySelectorAll('.slide');
+let current = 1;
+const total = slides.length;
+document.getElementById('total').textContent = total;
+
+/* 含互動元素的頁自動停用 click-zones（動態偵測，增刪頁不會壞） */
+const noClickZoneSlides = [];
+slides.forEach((s, i) => {
+  if (s.classList.contains('cover') || s.classList.contains('closing') ||
+      s.querySelector('iframe, .cover-cta')) noClickZoneSlides.push(i + 1);
+});
+
+function showSlide(n) {
+  if (n < 1) n = 1;
+  if (n > total) n = total;
+  slides.forEach((s, i) => {
+    s.classList.remove('active', 'prev');
+    if (i + 1 === n) s.classList.add('active');
+    else if (i + 1 < n) s.classList.add('prev');
+  });
+  current = n;
+  document.getElementById('curr').textContent = current;
+  document.getElementById('progress').style.width = (current / total * 100) + '%';
+  history.replaceState(null, '', '#' + current);
+  document.body.classList.toggle('no-clickzones', noClickZoneSlides.includes(n));
+}
+function nextSlide() { showSlide(current + 1); }
+function prevSlide() { showSlide(current - 1); }
+function goToSlide(n) { showSlide(n); }
+
+/* ===== 全螢幕（跨瀏覽器；Promise rejection 用 .catch 接） ===== */
+function getFsRequestFn(el) {
+  return el.requestFullscreen || el.webkitRequestFullscreen ||
+         el.mozRequestFullScreen || el.msRequestFullscreen || null;
+}
+function getFsExitFn() {
+  return document.exitFullscreen || document.webkitExitFullscreen ||
+         document.mozCancelFullScreen || document.msExitFullscreen || null;
+}
+function isFs() {
+  return document.fullscreenElement || document.webkitFullscreenElement ||
+         document.mozFullScreenElement || document.msFullscreenElement;
+}
+function enterFs(el) {
+  const req = getFsRequestFn(el);
+  if (!req) { showToast('此瀏覽器不支援全螢幕，請按 F11', 4000); return Promise.reject(new Error('no fullscreen api')); }
+  let p;
+  try { p = req.call(el); } catch (e) { return Promise.reject(e); }
+  if (!p || typeof p.then !== 'function') return Promise.resolve();
+  return p;
+}
+function toggleFullscreen() {
+  if (isFs()) { const exit = getFsExitFn(); if (exit) exit.call(document); return; }
+  enterFs(document.documentElement).catch(err => {
+    const inIframe = window.self !== window.top;
+    showToast(inIframe ? '預覽面板內無法全螢幕，請在新分頁開啟' : '無法進入全螢幕，請按 F11 或 ⌃⌘F', 4500);
+    console.warn('Fullscreen request failed:', err);
+  });
+}
+function startPresentation() {
+  enterFs(document.documentElement)
+    .catch(err => {
+      const inIframe = window.self !== window.top;
+      showToast(inIframe ? '預覽面板內無法全螢幕。請在新分頁開啟，或按 F11 後再開始。' : '無法進入全螢幕，請改按 F11 或 ⌃⌘F', 6000);
+      console.warn('Fullscreen request failed:', err);
+    })
+    .finally(() => nextSlide());
+}
+
+/* ===== Toast ===== */
+function showToast(msg, ms = 2500) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), ms);
+}
+
+/* ===== 鍵盤捷徑 ===== */
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); nextSlide(); }
+  if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prevSlide(); }
+  if (e.key === 'f' || e.key === 'F') { e.preventDefault(); toggleFullscreen(); }
+  if (e.key === 'Escape' && isFs()) (getFsExitFn() || (() => {})).call(document);
+  if (e.key === 'Home') goToSlide(1);
+  if (e.key === 'End') goToSlide(total);
+});
+
+/* ===== 初始化 ===== */
+if (location.hash) {
+  const n = parseInt(location.hash.slice(1));
+  if (!isNaN(n)) showSlide(n);
+} else {
+  document.body.classList.toggle('no-clickzones', noClickZoneSlides.includes(1));
+}
+</script>
+
+</body>
+</html>
