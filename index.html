@@ -429,19 +429,19 @@ body.no-clickzones .click-zones { display: none; }
   <div class="cards c2" style="flex:0 1 auto; gap:1.4vw;">
     <div class="card" style="text-align:center; padding:.9em 1em;">
       <h3 style="font-size:clamp(1.4rem,2vw,1.7rem); margin-bottom:.5em;">題一　<span class="gold">第 1、2 組</span></h3>
-      <div class="qr-box" data-q="1" style="width:min(21vh,180px); height:min(21vh,180px); margin:0 auto; background:#fff; border-radius:8px; padding:6px;"></div>
+      <div class="qr-box" data-q="1" style="width:min(21vh,180px); height:min(21vh,180px); margin:0 auto; background:#fff; border-radius:8px; padding:6px; overflow:hidden; display:flex; align-items:center; justify-content:center;"></div>
     </div>
     <div class="card" style="text-align:center; padding:.9em 1em;">
       <h3 style="font-size:clamp(1.4rem,2vw,1.7rem); margin-bottom:.5em;">題二　<span class="gold">第 3、4 組</span></h3>
-      <div class="qr-box" data-q="2" style="width:min(21vh,180px); height:min(21vh,180px); margin:0 auto; background:#fff; border-radius:8px; padding:6px;"></div>
+      <div class="qr-box" data-q="2" style="width:min(21vh,180px); height:min(21vh,180px); margin:0 auto; background:#fff; border-radius:8px; padding:6px; overflow:hidden; display:flex; align-items:center; justify-content:center;"></div>
     </div>
     <div class="card" style="text-align:center; padding:.9em 1em;">
       <h3 style="font-size:clamp(1.4rem,2vw,1.7rem); margin-bottom:.5em;">題三　<span class="gold">第 5、6 組</span></h3>
-      <div class="qr-box" data-q="3" style="width:min(21vh,180px); height:min(21vh,180px); margin:0 auto; background:#fff; border-radius:8px; padding:6px;"></div>
+      <div class="qr-box" data-q="3" style="width:min(21vh,180px); height:min(21vh,180px); margin:0 auto; background:#fff; border-radius:8px; padding:6px; overflow:hidden; display:flex; align-items:center; justify-content:center;"></div>
     </div>
     <div class="card" style="text-align:center; padding:.9em 1em;">
       <h3 style="font-size:clamp(1.4rem,2vw,1.7rem); margin-bottom:.5em;">題四　<span class="gold">第 7、8 組</span></h3>
-      <div class="qr-box" data-q="4" style="width:min(21vh,180px); height:min(21vh,180px); margin:0 auto; background:#fff; border-radius:8px; padding:6px;"></div>
+      <div class="qr-box" data-q="4" style="width:min(21vh,180px); height:min(21vh,180px); margin:0 auto; background:#fff; border-radius:8px; padding:6px; overflow:hidden; display:flex; align-items:center; justify-content:center;"></div>
     </div>
   </div>
   <p style="font-size:clamp(1.35rem,1.7vw,1.6rem); margin-top:.7em; text-align:center; color:var(--sub);">用手機掃描自己這組對應的 QR Code，即時送出討論精華——本頁與接下來四頁同步更新。</p>
@@ -1540,7 +1540,12 @@ document.addEventListener('keydown', (e) => {
     document.querySelectorAll('.qr-box[data-q]').forEach(box => {
       const q = box.getAttribute('data-q');
       box.innerHTML = '';
-      try { new QRCode(box, { text: base + 'submit.html?q=' + q, width: 220, height: 220, correctLevel: QRCode.CorrectLevel.M }); } catch (e) {}
+      // 🔴 大器教訓（2026-07-06）：QR 尺寸必須讀容器「當下渲染後」的實際內容區大小，絕不可寫死 px——
+      // 寫死值一旦跟 CSS（尤其含 vh/vw 的 min()）不同步，QR 會撐破容器溢出到鄰近卡片/文字。
+      const cs = getComputedStyle(box);
+      const padX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
+      const size = Math.max(60, Math.floor(box.clientWidth - padX));
+      try { new QRCode(box, { text: base + 'submit.html?q=' + q, width: size, height: size, correctLevel: QRCode.CorrectLevel.M }); } catch (e) {}
     });
   }
   function renderWall(q, arr) {
