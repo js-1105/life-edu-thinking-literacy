@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<title>思考素養工作坊 · 小組投稿</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@700;900&display=swap" rel="stylesheet">
+<script src="fbconfig.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<style>
+:root{--bg1:#14110D;--bg2:#201B14;--ink:#F2EBDC;--sub:#B8AD98;--accent:#D4AF37;--line:rgba(212,175,55,0.28)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:"Noto Sans TC","PingFang TC",sans-serif;background:linear-gradient(160deg,var(--bg2),var(--bg1) 70%);color:var(--ink);line-height:1.6;padding:env(safe-area-inset-top) 0 2em;min-height:100vh}
+.bar{background:rgba(0,0,0,.35);border-bottom:2px solid var(--line);color:var(--accent);padding:1.1em 1.1em;position:sticky;top:0;z-index:10;backdrop-filter:blur(6px)}
+.bar .g{font-family:"Noto Serif TC",serif;font-weight:900;font-size:1.4rem;letter-spacing:.03em}
+.bar .s{font-size:.9rem;color:var(--sub);margin-top:.2em}
+.wrap{max-width:640px;margin:0 auto;padding:1.2em 1.1em}
+.intro{color:var(--sub);font-size:.98rem;margin:.2em 0 1.2em}
+.blk{background:var(--card,rgba(255,255,255,0.045));border-radius:16px;box-shadow:0 4px 18px rgba(0,0,0,.35);border-top:4px solid var(--accent);border:1px solid var(--line);padding:1.1em 1.1em 1.2em;margin-bottom:1.3em}
+label{display:block;font-family:"Noto Serif TC",serif;font-weight:700;font-size:1.15rem;color:var(--accent);margin-bottom:.5em}
+textarea{width:100%;font-family:inherit;font-size:1.08rem;line-height:1.6;padding:.7em .8em;border:2px solid var(--line);border-radius:12px;background:rgba(0,0,0,.25);color:var(--ink);resize:vertical;min-height:6.5em}
+textarea::placeholder{color:var(--sub);opacity:.7}
+textarea:focus{outline:none;border-color:var(--accent)}
+button.send{margin-top:.7em;width:100%;background:var(--accent);color:#1A1305;border:none;border-radius:999px;padding:.85em;font-size:1.1rem;font-weight:700;font-family:inherit;cursor:pointer;letter-spacing:.05em}
+button.send:active{transform:translateY(1px);opacity:.9}
+.list{margin-top:1em;display:flex;flex-direction:column;gap:.55em}
+.item{background:rgba(212,175,55,0.07);border-left:4px solid var(--accent);border-radius:8px;padding:.6em .8em;font-size:1rem;white-space:pre-wrap;position:relative}
+.item .del{position:absolute;top:.3em;right:.5em;color:#e08;opacity:.6;font-size:.8rem;background:none;border:none;cursor:pointer}
+.empty{color:var(--sub);font-style:italic;font-size:.95rem}
+.foot{text-align:center;color:var(--sub);font-size:.85rem;margin-top:.5em;padding:0 1em}
+.flash{position:fixed;left:50%;bottom:1.5em;transform:translateX(-50%) translateY(20px);background:rgba(0,0,0,.9);color:var(--accent);padding:.6em 1.4em;border-radius:999px;font-size:1rem;opacity:0;transition:.3s;z-index:50;pointer-events:none;border:1px solid var(--line)}
+.flash.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="bar"><div class="g" id="qName">題 ?</div><div class="s" id="qSub">把全組討論的精華打上來</div></div>
+<div class="wrap">
+  <p class="intro" id="introTxt"></p>
+  <section class="blk">
+    <label id="lblMain">我們這一組的討論精華</label>
+    <textarea id="main" placeholder="把全組討論的重點寫下來，字數不限、可分多次送出"></textarea>
+    <button class="send" onclick="send()">送出</button>
+    <div class="list" id="mainList"></div>
+  </section>
+  <p class="foot" id="foot">連線中…</p>
+</div>
+<div class="flash" id="flash"></div>
+<script>
+(function(){
+  var Q={
+    1:{t:'題一',sub:'哪些因素影響陪審員的思考？',groups:'第 1、2 組',ph:'例：先入為主的刻板印象、個人生命經驗、對權威的態度…（把討論重點都記下來，可分多次送出）'},
+    2:{t:'題二',sub:'他們在思考時有哪些盲點？',groups:'第 3、4 組',ph:'例：急著下結論、把個人經驗當通則、忽略反面證據…（把討論重點都記下來，可分多次送出）'},
+    3:{t:'題三',sub:'又有哪些值得稱道與學習之處？',groups:'第 5、6 組',ph:'例：願意被說服、堅持追問到底、對他人保持同理…（把討論重點都記下來，可分多次送出）'},
+    4:{t:'題四',sub:'從這部電影看，思考素養應包含哪些素質？',groups:'第 7、8 組',ph:'例：知識與技能、情意與態度、後設思考……並說明從電影哪個情節看出來（把討論重點都記下來，可分多次送出）'}
+  };
+  var p=new URLSearchParams(location.search);
+  var q=(p.get('q')||'1').replace(/[^1-4]/g,'')||'1';
+  var Qq=Q[q]||Q[1];
+  document.getElementById('qName').textContent=Qq.t+'　'+Qq.groups;
+  document.getElementById('qSub').textContent=Qq.sub;
+  document.getElementById('introTxt').innerHTML='你們這一組（<b>'+Qq.groups+'</b>）討論：<b>'+Qq.sub+'</b>。把全組討論的<b>精華</b>都打上來——重點、不同看法都記下來，<b>不只一句、可分多次送出</b>，即時出現在投影幕這一題的頁面。';
+  document.getElementById('main').placeholder=Qq.ph;
+  document.title=Qq.t+' · 投稿';
+
+  function esc(s){return String(s||'').replace(/[&<>]/g,function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[m];});}
+  function configured(){return window.FB_CONFIG&&FB_CONFIG.apiKey&&FB_CONFIG.apiKey.indexOf('PASTE')<0;}
+  function listify(o){if(!o)return[];return Object.keys(o).sort(function(a,b){return (o[a].t||0)-(o[b].t||0);}).map(function(k){return {k:k,txt:o[k].txt};});}
+  var DB=null, foot=document.getElementById('foot');
+  function flash(t){var f=document.getElementById('flash');f.textContent=t;f.classList.add('show');setTimeout(function(){f.classList.remove('show');},1400);}
+  function render(arr){
+    var box=document.getElementById('mainList');
+    if(!arr||!arr.length){box.innerHTML='<div class="empty">還沒送出內容。</div>';return;}
+    box.innerHTML=arr.map(function(o){
+      var del=DB?'<button class="del" data-k="'+o.k+'">刪</button>':'';
+      return '<div class="item">'+esc(o.txt)+del+'</div>';
+    }).join('');
+  }
+  document.getElementById('mainList').addEventListener('click',function(e){
+    var b=e.target.closest&&e.target.closest('.del'); if(!b||!DB)return;
+    DB.child(b.getAttribute('data-k')).remove();
+  });
+  var LKEY='tl_discuss_'+(window.FB_ROOM||'local')+'_q'+q;
+  function loadLocal(){try{return JSON.parse(localStorage.getItem(LKEY))||[];}catch(e){return [];}}
+  function saveLocal(a){try{localStorage.setItem(LKEY,JSON.stringify(a));}catch(e){}}
+  function renderLocal(){render(loadLocal().map(function(t,i){return {k:i,txt:t};}));}
+  window.send=function(){
+    var ta=document.getElementById('main'),txt=(ta.value||'').trim();if(!txt){flash('先寫點東西再送出');return;}
+    if(DB){DB.push({txt:txt,t:Date.now()});}
+    else{var a=loadLocal();a.push(txt);saveLocal(a);renderLocal();}
+    ta.value='';flash('已送出！');
+  };
+  if(configured()&&typeof firebase!=='undefined'){
+    try{
+      firebase.initializeApp(window.FB_CONFIG);
+      DB=firebase.database().ref('rooms/'+(window.FB_ROOM||'default')+'/discuss/q'+q);
+      DB.on('value',function(snap){render(listify(snap.val()||{}));});
+      foot.textContent='● 已連線（房號 '+(window.FB_ROOM||'default')+'）—— 送出後投影幕即時更新';
+    }catch(e){foot.textContent='⚠ 連線失敗，改用本機暫存：'+e.message;renderLocal();}
+  } else {
+    foot.textContent='○ 尚未設定雲端（fbconfig.js）——此頁僅本機測試，不會傳到投影幕';
+    renderLocal();
+  }
+})();
+</script>
+</body>
+</html>
