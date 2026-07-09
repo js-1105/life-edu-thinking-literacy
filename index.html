@@ -149,9 +149,12 @@ figcaption, .cap {
 .video-wrap iframe { width: 100%; height: 100%; border: 0; }
 
 /* 自製繁中字幕影片（同一 iframe 就地放大；機制沿用生命教育概論課程單元四） */
+/* 全螢幕/放大黑閃第二根因：跨網域iframe(YouTube)是獨立合成圖層，視窗尺寸變動(全螢幕/zoom)時iframe自己
+   需要時間追上新尺寸，追上前會露出容器「自己」的背景——原為純黑#000，故呈現黑一下再變亮。
+   改用deck底色，追上前露出的是底色不是黑，穩定後iframe仍100%覆蓋、正常畫面零視覺差異。 */
 .vframe { position: relative; width: min(58vw, 106vh); aspect-ratio: 16/9; border-radius: 12px;
   overflow: hidden; border: 1px solid var(--line); box-shadow: 0 16px 50px rgba(0,0,0,0.55);
-  background: #000; margin: 0 auto; }
+  background: var(--bg1); margin: 0 auto; }
 .vframe iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 .vframe .cc-ol { position: absolute; left: 3%; right: 3%; bottom: 7%; z-index: 5; text-align: center;
   pointer-events: none; font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif; font-weight: 700; line-height: 1.45; }
