@@ -27,6 +27,9 @@
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { height: 100%; }
+/* 全螢幕零閃黑：進全螢幕的是 <html>，若它本身透明，瀏覽器會先露出預設黑色 ::backdrop 再等 body 背景畫上，造成黑一下再變亮。兩行同色補滿，从第0幀起永不見黑。 */
+html { background: var(--bg1); }
+::backdrop { background: var(--bg1); }
 body {
   font-family: var(--font-sans);
   font-size: 18px;
