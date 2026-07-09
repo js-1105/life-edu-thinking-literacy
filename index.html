@@ -1559,7 +1559,7 @@ document.getElementById('total').textContent = total;
 const noClickZoneSlides = [];
 slides.forEach((s, i) => {
   if (s.classList.contains('cover') || s.classList.contains('closing') ||
-      s.querySelector('iframe, .cover-cta')) noClickZoneSlides.push(i + 1);
+      s.querySelector('iframe, .cover-cta, .vframe')) noClickZoneSlides.push(i + 1);
 });
 
 function showSlide(n) {
