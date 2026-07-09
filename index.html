@@ -144,6 +144,28 @@ figcaption, .cap {
   background: #000; margin: 0 auto;
 }
 .video-wrap iframe { width: 100%; height: 100%; border: 0; }
+
+/* 自製繁中字幕影片（同一 iframe 就地放大；機制沿用生命教育概論課程單元四） */
+.vframe { position: relative; width: min(58vw, 106vh); aspect-ratio: 16/9; border-radius: 12px;
+  overflow: hidden; border: 1px solid var(--line); box-shadow: 0 16px 50px rgba(0,0,0,0.55);
+  background: #000; margin: 0 auto; }
+.vframe iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.vframe .cc-ol { position: absolute; left: 3%; right: 3%; bottom: 7%; z-index: 5; text-align: center;
+  pointer-events: none; font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif; font-weight: 700; line-height: 1.45; }
+.vframe .cc-ol span { display: inline; background: rgba(0,0,0,.6); color: #fff;
+  font-size: clamp(1.05rem, 2.1vw, 1.9rem); padding: .12em .5em; border-radius: 6px;
+  text-shadow: 0 2px 5px rgba(0,0,0,.92); box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.vframe .vfs { position: absolute; bottom: .6em; right: .6em; z-index: 8; width: 2.3em; height: 2.3em;
+  border: none; border-radius: 9px; background: rgba(0,0,0,.6); color: #fff; font-size: 1.15rem;
+  line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: background .2s; font-family: inherit; }
+.vframe .vfs:hover { background: rgba(134,38,51,.95); }
+.vframe.zoom { position: fixed; inset: 2vh 2vw; width: auto; height: auto; aspect-ratio: auto;
+  max-width: none; z-index: 99999; border-radius: 12px; box-shadow: 0 30px 90px rgba(0,0,0,.7); }
+.vframe.zoom .vfs { width: 2.7em; height: 2.7em; font-size: 1.35rem; bottom: 1em; right: 1em; }
+body.has-vzoom #vzoomBackdrop { position: fixed; inset: 0; background: rgba(0,0,0,.75); z-index: 99998;
+  opacity: 1; visibility: visible; transition: opacity .2s; }
+#vzoomBackdrop { opacity: 0; visibility: hidden; }
 .vid-link { position: relative; z-index: 60; display: inline-block; margin-top: .8em;
   color: var(--accent); font-size: .95rem; text-decoration: none; border-bottom: 1px dotted var(--accent); }
 .local-clip {
@@ -964,15 +986,15 @@ body.no-clickzones .click-zones { display: none; }
 
 <!-- 46 眼見為憑 -->
 <section class="slide" data-reveal>
-  <div class="two-col" style="flex:0 1 auto;">
+  <div class="two-col" style="flex:0 1 auto; grid-template-columns:0.7fr 1fr;">
     <div style="text-align:center;">
       <h2 style="display:inline-block;">眼見為憑？</h2>
     </div>
     <div style="text-align:center;">
-      <div style="position:relative; display:inline-block;">
+      <div style="position:relative; display:inline-block; margin-left:80px;">
         <img src="assets/d2_illusion1.png" alt="繆氏錯覺" style="max-height:58vh; display:block; margin:0 auto;">
-        <div class="reveal-step" style="position:absolute; left:23.9%; top:4.5%; height:91%; width:0; border-left:3px dashed #E23B3B;"></div>
-        <div class="reveal-step" style="position:absolute; left:75.1%; top:3.8%; height:91%; width:0; border-left:3px dashed #E23B3B;"></div>
+        <div class="reveal-step" style="position:absolute; left:20.4%; top:4.5%; height:91%; width:0; border-left:3px dashed #E23B3B;"></div>
+        <div class="reveal-step" style="position:absolute; left:78.4%; top:3.8%; height:91%; width:0; border-left:3px dashed #E23B3B;"></div>
       </div>
       <div class="cap">兩條線段其實一樣長（Müller-Lyer 錯覺）</div>
     </div>
@@ -981,7 +1003,7 @@ body.no-clickzones .click-zones { display: none; }
 
 <!-- 47 眼見不足以為憑 -->
 <section class="slide">
-  <div class="two-col" style="flex:0 1 auto;">
+  <div class="two-col" style="flex:0 1 auto; grid-template-columns:0.7fr 1fr;">
     <div style="text-align:center;">
       <h2 style="display:inline-block;">眼見不足以為憑！</h2>
     </div>
@@ -1058,10 +1080,10 @@ body.no-clickzones .click-zones { display: none; }
 <!-- 53 真相的剪接 -->
 <section class="slide">
   <h2>真相的剪接</h2>
-  <div class="video-wrap">
-    <iframe src="https://www.youtube-nocookie.com/embed/_SsccRkLLzU" title="The Guardian 1986 Points of View advert"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  <div class="vframe" id="vw-1">
+    <div id="yt-1"></div>
+    <div class="cc-ol" id="cc-1"></div>
+    <button class="vfs" title="放大影片（不離開簡報全螢幕）" aria-label="放大影片">⛶</button>
   </div>
   <p style="text-align:center; max-width:none;"><a class="vid-link" href="https://www.youtube.com/watch?v=_SsccRkLLzU" target="_blank" rel="noopener">《Points of View》廣告（The Guardian, 1986）↗</a></p>
 </section>
@@ -1670,6 +1692,75 @@ if (location.hash) {
 } else {
   document.body.classList.toggle('no-clickzones', noClickZoneSlides.includes(1));
 }
+
+/* ===== S53 自製繁中字幕（The Guardian 1986 Points of View advert） ===== */
+(function () {
+  var OFFSET = 0; // 正數＝字幕提早；cue 出現時刻 = start - OFFSET
+  var CUES = [
+    [0.0, '同一件事，從一個角度看，會得到一種印象。'],
+    [11.1, '從另一個角度看，卻會得到截然不同的印象。'],
+    [17.4, '只有看到全貌，才能真正理解究竟發生了什麼事。']
+  ];
+  function ccShow(t) {
+    t += OFFSET; var s = '';
+    for (var i = 0; i < CUES.length; i++) {
+      if (t >= CUES[i][0] && (i + 1 >= CUES.length || t < CUES[i + 1][0])) { s = CUES[i][1]; break; }
+    }
+    var el = document.getElementById('cc-1'); if (el) el.innerHTML = s ? ('<span>' + s + '</span>') : '';
+  }
+  function boot() {
+    new YT.Player('yt-1', {
+      videoId: '_SsccRkLLzU', host: 'https://www.youtube-nocookie.com',
+      playerVars: { rel: 0, modestbranding: 1, fs: 0 },
+      events: { onReady: function (e) {
+        setInterval(function () { try {
+          var st = e.target.getPlayerState();
+          if (st === 1 || st === 2) ccShow(e.target.getCurrentTime());
+        } catch (_) {} }, 250);
+      } }
+    });
+  }
+  if (window.YT && YT.Player) boot();
+  else {
+    var prev = window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady = function () { if (prev) prev(); boot(); };
+  }
+  var ytApi = document.createElement('script');
+  ytApi.src = 'https://www.youtube.com/iframe_api';
+  document.head.appendChild(ytApi);
+})();
+
+/* ===== 影片就地放大（同一 iframe 切 CSS class；播放不中斷、不重頭、不停止；沿用生命教育概論課程單元四機制） ===== */
+(function () {
+  var backdrop = document.createElement('div');
+  backdrop.id = 'vzoomBackdrop';
+  document.body.appendChild(backdrop);
+  function zoomedFrame() { return document.querySelector('.vframe.zoom'); }
+  function enter(vf) {
+    var sl = vf.closest('.slide');
+    if (sl) { sl.dataset.savedT = sl.style.transform || ''; sl.style.transform = 'none'; }
+    vf.classList.add('zoom');
+    document.body.classList.add('has-vzoom');
+  }
+  function exit() {
+    var vf = zoomedFrame();
+    document.body.classList.remove('has-vzoom');
+    if (!vf) return;
+    var sl = vf.closest('.slide');
+    vf.classList.remove('zoom');
+    if (sl) sl.style.transform = sl.dataset.savedT || '';
+  }
+  function toggle(vf) {
+    if (vf.classList.contains('zoom')) { exit(); }
+    else { var cur = zoomedFrame(); if (cur && cur !== vf) exit(); enter(vf); }
+  }
+  window.__exitVideoZoom = exit;
+  document.querySelectorAll('.vframe .vfs').forEach(function (b) {
+    b.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); toggle(b.closest('.vframe')); });
+  });
+  backdrop.addEventListener('click', function (e) { e.stopPropagation(); exit(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && zoomedFrame()) { e.stopPropagation(); exit(); } }, true);
+})();
 </script>
 
 </body>
