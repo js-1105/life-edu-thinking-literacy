@@ -169,7 +169,7 @@ figcaption, .cap {
 .imgzoom { position: relative; display: inline-block; }
 .imgzoom img { display: block; border-radius: 10px; }
 .imgzoom.zoom { display: flex; align-items: center; justify-content: center; background: rgba(10,8,6,.97); }
-.imgzoom.zoom img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; border-radius: 8px; }
+.imgzoom.zoom img { max-width: 100% !important; max-height: 100% !important; width: auto; height: auto; object-fit: contain; border-radius: 8px; }
 body.has-vzoom #vzoomBackdrop { position: fixed; inset: 0; background: rgba(0,0,0,.75); z-index: 99998;
   opacity: 1; visibility: visible; transition: opacity .2s; }
 #vzoomBackdrop { opacity: 0; visibility: hidden; }
