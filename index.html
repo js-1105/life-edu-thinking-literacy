@@ -168,10 +168,14 @@ figcaption, .cap {
 .vframe .vfs:hover, .imgzoom .vfs:hover { background: rgba(134,38,51,.95); }
 /* 就地放大黑閃第三根因：黑不是從容器背景漏出來(已排除)，是跨網域iframe(YouTube)自己內部
    還沒追上新尺寸時的渲染狀態，頁面CSS摸不到iframe內部。改用「遮罩法」：放大/縮小瞬間先蓋住，
-   給iframe時間追上新尺寸再淡出——不管黑色從哪個圖層冒出來都被蓋住。 */
+   給iframe時間追上新尺寸再淡出——不管黑色從哪個圖層冒出來都被蓋住。
+   🔴 2026-07-09 教授實測仍會黑：抓出前版bug——transition套用在「出現」方向，遮罩自己也在
+   淡入(150ms)，該立刻蓋住的那段時間遮罩仍半透明，黑色從底下透出來＝遮罩沒發揮作用。
+   改法：出現瞬間即100%不透明(zero-duration)，只有消失(淡出)才允許transition。 */
 .vframe::after, .imgzoom::after { content: ''; position: absolute; inset: 0; z-index: 7;
-  background: var(--bg1); opacity: 0; pointer-events: none; transition: opacity .15s ease; }
-.vframe.vresize::after, .imgzoom.vresize::after { opacity: 1; }
+  background: var(--bg1); opacity: 0; pointer-events: none; }
+.vframe.vresize::after, .imgzoom.vresize::after { opacity: 1; transition: none; }
+.vframe.vresize-out::after, .imgzoom.vresize-out::after { opacity: 0; transition: opacity .25s ease; }
 .vframe.zoom, .imgzoom.zoom { position: fixed !important; inset: 2vh 2vw !important; width: auto !important; height: auto !important; aspect-ratio: auto !important;
   max-width: none !important; z-index: 99999 !important; border-radius: 12px; box-shadow: 0 30px 90px rgba(0,0,0,.7) !important;
   transform: none !important; margin: 0 !important; }
@@ -2230,11 +2234,17 @@ if (location.hash) {
   backdrop.id = 'vzoomBackdrop';
   (document.getElementById('deck') || document.body).appendChild(backdrop);
   function zoomedFrame() { return document.querySelector('.vframe.zoom, .imgzoom.zoom'); }
-  // 就地放大/縮小的黑閃：跨網域iframe自己還沒追上新尺寸，先蓋遮罩、給iframe時間追上再淡出
+  // 就地放大/縮小的黑閃：跨網域iframe自己還沒追上新尺寸，先瞬間蓋住(不淡入，才不會蓋不住)，
+  // 給iframe時間追上再淡出。vresize=瞬間全遮罩(無transition)；vresize-out=淡出中(有transition)。
   function maskDuringResize(vf) {
+    clearTimeout(vf._vresizeT); clearTimeout(vf._vresizeT2);
+    vf.classList.remove('vresize-out');
     vf.classList.add('vresize');
-    clearTimeout(vf._vresizeT);
-    vf._vresizeT = setTimeout(function () { vf.classList.remove('vresize'); }, 380);
+    vf._vresizeT = setTimeout(function () {
+      vf.classList.remove('vresize');
+      vf.classList.add('vresize-out');
+      vf._vresizeT2 = setTimeout(function () { vf.classList.remove('vresize-out'); }, 260);
+    }, 380);
   }
   function enter(vf) {
     var sl = vf.closest('.slide');
