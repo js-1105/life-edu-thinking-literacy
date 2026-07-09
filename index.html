@@ -1213,22 +1213,27 @@ body.no-clickzones .click-zones { display: none; }
   </div>
 </section>
 
-<!-- 64 宗教靈異現象的假訊息與事實查核 -->
+<!-- 64 舍利子：一場假訊息反轉的查核案例 -->
 <section class="slide">
   <div class="two-col">
     <div>
       <h2>宗教靈異現象與思考</h2>
-      <p class="lead">舍利子：假訊息與事實查核</p>
+      <p class="lead">舍利子：一場「查核反轉」案例</p>
       <ul class="list tight">
         <li>舍利子哪來？醫學角度並未有明確定論——肝膽結石？骨骼內礦物質再結晶？</li>
-        <li>網傳「星雲大師舍利子」照片，經查核為盜用淘寶商品圖，並非事實。</li>
+        <li>2023年星雲大師荼毘後，佛光山公布靈骨舍利子照片；網路粉專隨即指控照片「盜用淘寶賣場圖」，並附上幾乎一致的賣場截圖，各方隨即大量轉發。</li>
+        <li>台灣事實查核中心查證：佛光山原始照片為連續拍攝、時地明確；那張「賣場截圖」反而查無實際賣場，且是盜用《人間福報》照片合成而成——「盜圖指控」本身才是假訊息。</li>
+        <li>這起事件恰好示範了思考素養的核心：查核要看證據（原始檔、拍攝時地、賣場是否存在），不能只憑「兩張圖很像」就下結論。</li>
       </ul>
     </div>
     <div style="text-align:center;">
-      <span class="imgframe"><img src="assets/d2_rel1.jpg" alt="舍利子哪來？醫學角度：肝膽結石？骨骼內礦物質再結晶？" style="max-height:26vh;"></span>
-      <div class="cap">舍利子哪來？醫學角度未有明確定論。</div>
-      <span class="imgframe" style="margin-top:.6em;"><img src="assets/d2_rel2.jpg" alt="網護：星雲舍利子盜淘寶圖，查核為假" style="max-height:26vh;"></span>
-      <div class="cap">星雲大師舍利子照片被指盜用淘寶商品圖，查核為假。</div>
+      <div class="vframe" style="width:100%;">
+        <iframe src="https://www.youtube-nocookie.com/embed/BzVO7tFSQK8" title="網譏「星雲舍利子盜淘寶圖」查核為假！翻車刪文　佛光山罕重話回應｜鏡週刊"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <button class="vfs" title="放大影片（不離開簡報全螢幕）" aria-label="放大影片">⛶</button>
+      </div>
+      <p style="text-align:center; max-width:none;"><a class="vid-link" href="https://www.youtube.com/watch?v=BzVO7tFSQK8" target="_blank" rel="noopener">鏡週刊：〈網譏「星雲舍利子盜淘寶圖」查核為假〉↗</a></p>
     </div>
   </div>
 </section>
@@ -2211,7 +2216,7 @@ if (location.hash) {
 (function () {
   var backdrop = document.createElement('div');
   backdrop.id = 'vzoomBackdrop';
-  document.body.appendChild(backdrop);
+  (document.getElementById('deck') || document.body).appendChild(backdrop);
   function zoomedFrame() { return document.querySelector('.vframe.zoom'); }
   function enter(vf) {
     var sl = vf.closest('.slide');
