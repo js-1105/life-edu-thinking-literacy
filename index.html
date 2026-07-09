@@ -1588,7 +1588,14 @@ function nextSlide() {
   }
   showSlide(current + 1);
 }
-function prevSlide() { showSlide(current - 1); }
+function prevSlide() {
+  const activeSlide = slides[current - 1];
+  if (activeSlide && activeSlide.hasAttribute('data-reveal') && activeSlide.classList.contains('revealed')) {
+    activeSlide.classList.remove('revealed');
+    return;
+  }
+  showSlide(current - 1);
+}
 function goToSlide(n) { showSlide(n); }
 
 /* ===== 全螢幕（跨瀏覽器；Promise rejection 用 .catch 接） ===== */
