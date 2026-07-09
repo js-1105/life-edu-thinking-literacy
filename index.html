@@ -166,6 +166,12 @@ figcaption, .cap {
   line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center;
   transition: background .2s; font-family: inherit; }
 .vframe .vfs:hover, .imgzoom .vfs:hover { background: rgba(134,38,51,.95); }
+/* 就地放大黑閃第三根因：黑不是從容器背景漏出來(已排除)，是跨網域iframe(YouTube)自己內部
+   還沒追上新尺寸時的渲染狀態，頁面CSS摸不到iframe內部。改用「遮罩法」：放大/縮小瞬間先蓋住，
+   給iframe時間追上新尺寸再淡出——不管黑色從哪個圖層冒出來都被蓋住。 */
+.vframe::after, .imgzoom::after { content: ''; position: absolute; inset: 0; z-index: 7;
+  background: var(--bg1); opacity: 0; pointer-events: none; transition: opacity .15s ease; }
+.vframe.vresize::after, .imgzoom.vresize::after { opacity: 1; }
 .vframe.zoom, .imgzoom.zoom { position: fixed !important; inset: 2vh 2vw !important; width: auto !important; height: auto !important; aspect-ratio: auto !important;
   max-width: none !important; z-index: 99999 !important; border-radius: 12px; box-shadow: 0 30px 90px rgba(0,0,0,.7) !important;
   transform: none !important; margin: 0 !important; }
@@ -1436,7 +1442,7 @@ body.no-clickzones .click-zones { display: none; }
 <!-- 74 立場不必中立 總起 -->
 <section class="slide big-say">
   <p class="line">立場<em>不必中立</em><br>態度<em>必須公正</em></p>
-  <p class="small" style="margin-top:1.5em;">面對爭議性議題時，思考的態度與涵養非常重要。<br>不同立場的人若能進行同理對話、修正彼此的立場，將能趨近更完整的真理。（手冊附錄）</p>
+  <p class="small" style="margin-top:1.5em;">面對爭議性議題時，思考的態度與涵養非常重要。<br>不同立場的人若能進行同理對話、修正彼此的立場，將能趨近更完整的真理。</p>
 </section>
 
 <!-- 75 立場不必中立 -->
@@ -2224,9 +2230,16 @@ if (location.hash) {
   backdrop.id = 'vzoomBackdrop';
   (document.getElementById('deck') || document.body).appendChild(backdrop);
   function zoomedFrame() { return document.querySelector('.vframe.zoom, .imgzoom.zoom'); }
+  // 就地放大/縮小的黑閃：跨網域iframe自己還沒追上新尺寸，先蓋遮罩、給iframe時間追上再淡出
+  function maskDuringResize(vf) {
+    vf.classList.add('vresize');
+    clearTimeout(vf._vresizeT);
+    vf._vresizeT = setTimeout(function () { vf.classList.remove('vresize'); }, 380);
+  }
   function enter(vf) {
     var sl = vf.closest('.slide');
     if (sl) { sl.dataset.savedT = sl.style.transform || ''; sl.style.transform = 'none'; }
+    maskDuringResize(vf);
     vf.classList.add('zoom');
     document.body.classList.add('has-vzoom');
   }
@@ -2235,6 +2248,7 @@ if (location.hash) {
     document.body.classList.remove('has-vzoom');
     if (!vf) return;
     var sl = vf.closest('.slide');
+    maskDuringResize(vf);
     vf.classList.remove('zoom');
     if (sl) sl.style.transform = sl.dataset.savedT || '';
   }
