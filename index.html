@@ -2293,5 +2293,14 @@ if (location.hash) {
 })();
 </script>
 
+<script>
+/* 防筆電睡眠斷線（2026-07-19）：頁面可見期間持有螢幕喚醒鎖，筆電當遠端顯示機時不會閒置睡眠而斷開遙控連線；切背景自動釋放、回前景自動重取。不支援的瀏覽器靜默略過。 */
+(function(){
+  if(!("wakeLock" in navigator)) return;
+  async function req(){ try{ if(document.visibilityState==="visible"){ await navigator.wakeLock.request("screen"); } }catch(e){} }
+  document.addEventListener("visibilitychange", req);
+  req();
+})();
+</script>
 </body>
 </html>
