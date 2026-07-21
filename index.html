@@ -140,13 +140,6 @@ figcaption, .cap {
 .gallery img { max-height: 24vh; width: 100%; object-fit: cover; }
 
 /* 影片 */
-.video-wrap {
-  position: relative; z-index: 60; width: min(58vw, 106vh);
-  aspect-ratio: 16/9; border-radius: 12px; overflow: hidden;
-  border: 1px solid var(--line); box-shadow: 0 16px 50px rgba(0,0,0,0.55);
-  background: #000; margin: 0 auto;
-}
-.video-wrap iframe { width: 100%; height: 100%; border: 0; }
 
 /* 自製繁中字幕影片（同一 iframe 就地放大；機制沿用生命教育概論課程單元四） */
 /* 全螢幕/放大黑閃第二根因：跨網域iframe(YouTube)是獨立合成圖層，視窗尺寸變動(全螢幕/zoom)時iframe自己
@@ -259,6 +252,10 @@ body.has-vzoom #vzoomBackdrop { position: fixed; inset: 0; background: rgba(0,0,
   transition: transform .2s, box-shadow .2s;
 }
 .cover-cta:hover { transform: translateY(-2px); box-shadow: 0 14px 38px rgba(212,175,55,0.35); }
+.back-home-btn { margin-top: 1.8em; padding: .55em 1.7em; font-size: 1rem; letter-spacing: .18em;
+  font-family: inherit; background: transparent; color: var(--accent); border: 1px solid var(--accent);
+  border-radius: 999px; cursor: pointer; transition: all .25s ease; }
+.back-home-btn:hover { background: var(--accent); color: #14110D; }
 
 /* 引用來源 */
 ol.references { max-width: 56em; padding-left: 1.4em; }
@@ -376,7 +373,7 @@ body.no-clickzones .click-zones { display: none; }
   <div class="vframe">
     <iframe src="https://www.youtube-nocookie.com/embed/NX37Jz5v2-s?start=46" title="十二怒漢 劇情濃縮回顧"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      referrerpolicy="strict-origin-when-cross-origin" frameborder="0" allowfullscreen></iframe>
     <button class="vfs" title="放大影片（不離開簡報全螢幕）" aria-label="放大影片"><svg viewBox="0 0 24 24" width="1.05em" height="1.05em" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M21 16v3a2 2 0 0 1-2 2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/></svg></button>
   </div>
   <p style="text-align:center; max-width:none;"><a class="vid-link" href="https://www.youtube.com/watch?v=NX37Jz5v2-s" target="_blank" rel="noopener">《十二怒漢》劇情濃縮回顧（YouTube，自 00:46 起播）↗</a></p>
@@ -1269,7 +1266,7 @@ body.no-clickzones .click-zones { display: none; }
       <div class="vframe" style="width:100%;">
         <iframe src="https://www.youtube-nocookie.com/embed/BzVO7tFSQK8" title="網譏「星雲舍利子盜淘寶圖」查核為假！翻車刪文　佛光山罕重話回應｜鏡週刊"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          referrerpolicy="strict-origin-when-cross-origin" frameborder="0" allowfullscreen></iframe>
         <button class="vfs" title="放大影片（不離開簡報全螢幕）" aria-label="放大影片"><svg viewBox="0 0 24 24" width="1.05em" height="1.05em" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M21 16v3a2 2 0 0 1-2 2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/></svg></button>
       </div>
       <p style="text-align:center; max-width:none;"><a class="vid-link" href="https://www.youtube.com/watch?v=BzVO7tFSQK8" target="_blank" rel="noopener">鏡週刊：〈網譏「星雲舍利子盜淘寶圖」查核為假〉↗</a></p>
@@ -1293,7 +1290,7 @@ body.no-clickzones .click-zones { display: none; }
       <div class="vframe" style="width:92%; margin:1.4em auto 0; transform:rotate(3deg) translate(14px,0); position:relative; z-index:1;">
         <iframe src="https://www.youtube-nocookie.com/embed/HHhSr8GB9Mo" title="媽祖婆一直敲玻璃...原來是要跟童綜合總院長說這這件事...-2023年白沙屯媽祖往北港進香（2）"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          referrerpolicy="strict-origin-when-cross-origin" frameborder="0" allowfullscreen></iframe>
         <button class="vfs" title="放大影片（不離開簡報全螢幕）" aria-label="放大影片"><svg viewBox="0 0 24 24" width="1.05em" height="1.05em" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M21 16v3a2 2 0 0 1-2 2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/></svg></button>
       </div>
       <p style="text-align:center; max-width:none;"><a class="vid-link" href="https://www.youtube.com/watch?v=HHhSr8GB9Mo" target="_blank" rel="noopener">白沙屯媽祖網路電視台：〈媽祖婆一直敲玻璃...原來是要跟童綜合總院長說這件事〉↗</a></p>
@@ -1602,6 +1599,7 @@ body.no-clickzones .click-zones { display: none; }
   <h1 style="font-size:clamp(2rem,4vw,3.4rem);">Thanks for your attention!</h1>
   <div class="ornament"></div>
   <p class="lead">臺大生命教育研發育成中心　孫效智教授</p>
+  <button class="back-home-btn" onclick="goToSlide(1)">↑　回到首頁</button>
 </section>
 
 </div>
@@ -1648,6 +1646,7 @@ function showSlide(n) {
   document.getElementById('progress').style.width = (current / total * 100) + '%';
   history.replaceState(null, '', '#' + current);
   document.body.classList.toggle('no-clickzones', noClickZoneSlides.includes(n));
+  window.__exitVideoZoom && window.__exitVideoZoom();
 }
 function nextSlide() {
   const activeSlide = slides[current - 1];
@@ -1711,9 +1710,27 @@ function showToast(msg, ms = 2500) {
   setTimeout(() => t.classList.remove('show'), ms);
 }
 
+/* ===== Space＝影音框內播放/暫停、框外翻頁（滑鼠位置判定） ===== */
+let __spaceMx = 0, __spaceMy = 0;
+document.addEventListener('mousemove', e => { __spaceMx = e.clientX; __spaceMy = e.clientY; }, { passive: true });
+function toggleVideoInFocus() {
+  const el = document.elementFromPoint(__spaceMx, __spaceMy);
+  const vc = el && el.closest ? el.closest('.video-wrap,.vframe') : null;
+  if (!vc) return false; // 不在影音框內 → 回 false，呼叫端執行 nextSlide()
+  const vid = vc.querySelector('video');
+  if (vid) { if (vid.paused) vid.play(); else vid.pause(); return true; }
+  const yt = vc._ytPlayer;
+  if (yt && typeof yt.getPlayerState === 'function') {
+    try { const s = yt.getPlayerState(); if (s === 1) yt.pauseVideo(); else yt.playVideo(); } catch (_) {}
+    return true;
+  }
+  return true; // 純 iframe 無 API：無法控制播放，但仍阻止跳頁
+}
+
 /* ===== 鍵盤捷徑 ===== */
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); nextSlide(); }
+  if (e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); nextSlide(); }
+  if (e.key === ' ') { e.preventDefault(); if (!toggleVideoInFocus()) nextSlide(); }
   if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prevSlide(); }
   if (e.key === 'f' || e.key === 'F') { e.preventDefault(); toggleFullscreen(); }
   if (e.key === 'Escape' && isFs()) (getFsExitFn() || (() => {})).call(document);
@@ -1791,6 +1808,7 @@ if (location.hash) {
       videoId: '_SsccRkLLzU', host: 'https://www.youtube-nocookie.com',
       playerVars: { rel: 0, modestbranding: 1, fs: 0 },
       events: { onReady: function (e) {
+        try { var vw = e.target.getIframe().closest('.video-wrap,.vframe'); if (vw) vw._ytPlayer = e.target; } catch (_) {}
         setInterval(function () { try {
           var st = e.target.getPlayerState();
           if (st === 1 || st === 2) ccShow(e.target.getCurrentTime());
@@ -1956,6 +1974,7 @@ if (location.hash) {
       videoId: 'Zh3Yz3PiXZw', host: 'https://www.youtube-nocookie.com',
       playerVars: { rel: 0, modestbranding: 1, fs: 0 },
       events: { onReady: function (e) {
+        try { var vw = e.target.getIframe().closest('.video-wrap,.vframe'); if (vw) vw._ytPlayer = e.target; } catch (_) {}
         setInterval(function () { try {
           var st = e.target.getPlayerState();
           if (st === 1 || st === 2) ccShow(e.target.getCurrentTime());
@@ -2224,6 +2243,7 @@ if (location.hash) {
       videoId: '3MYEtQ5Zdn8', host: 'https://www.youtube-nocookie.com',
       playerVars: { rel: 0, modestbranding: 1, fs: 0 },
       events: { onReady: function (e) {
+        try { var vw = e.target.getIframe().closest('.video-wrap,.vframe'); if (vw) vw._ytPlayer = e.target; } catch (_) {}
         setInterval(function () { try {
           var st = e.target.getPlayerState();
           if (st === 1 || st === 2) ccShow(e.target.getCurrentTime());
