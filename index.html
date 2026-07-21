@@ -107,6 +107,11 @@ ul.list.tight li { padding: .32em 0 .32em 1.6em; font-size: clamp(1.3rem, 1.75vw
 
 /* 章節頁 */
 .slide.section { align-items: flex-start; justify-content: center; }
+.section .sub { font-size: clamp(1.1rem, 1.9vw, 1.6rem); color: var(--sub); max-width: 30em; }
+/* 進頁時旋轉的放大鏡背景裝飾（參照哲學思考 deck 章節頁動畫） */
+.slide.active .anim-spin { transform-box: fill-box; transform-origin: 78px 78px;
+  animation: secSpin 2.8s cubic-bezier(.34,.03,.2,1); }
+@keyframes secSpin { from { transform: rotate(0deg); } to { transform: rotate(720deg); } }
 .section .kicker { font-size: clamp(1rem, 1.5vw, 1.3rem); letter-spacing: .35em; color: var(--sub); margin-bottom: 1em; }
 .section .big-num {
   font-family: var(--font-serif); font-weight: 900;
@@ -386,6 +391,8 @@ body.no-clickzones .click-zones { display: none; }
   <p class="kicker">PART ONE</p>
   <div class="big-num">壹</div>
   <h1>思考素養導論</h1>
+  <div class="ornament" style="width:120px; height:3px; margin:.55em 0 .75em; background:linear-gradient(90deg,var(--accent),transparent);"></div>
+  <p class="sub">理未易明，事未易察，善未易辨</p>
 </section>
 
 <!-- 5 電影 -->
@@ -406,6 +413,13 @@ body.no-clickzones .click-zones { display: none; }
 
 <!-- 6 電影回顧 -->
 <section class="slide">
+  <svg viewBox="0 0 200 200" aria-hidden="true" style="position:absolute; right:5vw; top:50%; transform:translateY(-50%); width:36vw; max-width:540px; opacity:.06; color:var(--accent); pointer-events:none; z-index:0;" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round">
+    <g class="anim-spin">
+      <circle cx="78" cy="78" r="56"/>
+      <line x1="118" y1="118" x2="180" y2="180" stroke-width="12"/>
+      <path d="M78 40 A38 38 0 0 0 40 78" stroke-width="4"/>
+    </g>
+  </svg>
   <h2>電影回顧：《十二怒漢》</h2>
   <div class="vframe">
     <div id="yt-4"></div>
