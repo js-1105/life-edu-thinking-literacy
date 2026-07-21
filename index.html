@@ -237,6 +237,8 @@ body.has-vzoom #vzoomBackdrop { position: fixed; inset: 0; background: rgba(0,0,
   font-size: clamp(1.8rem, 4vw, 3.4rem); line-height: 1.7; letter-spacing: .06em;
 }
 .big-say .line em { font-style: normal; color: var(--accent); }
+/* 多句 big-say 組：整塊置中、內部左對齊，各句行首互相對齊 */
+.big-say .say-block { text-align: left; }
 /* 分兩列的 big-say 句：第二列行首懸掛對齊「◯◯：」冒號後首字（3字×1.06em 含字距） */
 .big-say .line .hang { display: inline-block; text-align: left; padding-left: 3.18em; text-indent: -3.18em; }
 
@@ -350,8 +352,10 @@ body.no-clickzones .click-zones { display: none; }
 <!-- 2 楔子 -->
 <section class="slide big-say">
   <h2>楔子</h2>
-  <p class="line" style="margin-top:.5em;">覺察：<em>誰在你的腦袋裡旁白？</em></p>
-  <p class="line"><span class="hang">思考：你在發呆、胡思亂想、<br>隨意識流浮沉，還是<em>思考</em>？</span></p>
+  <div class="say-block" style="margin-top:.5em;">
+    <p class="line">覺察：<em>誰在你的腦袋裡旁白？</em></p>
+    <p class="line"><span class="hang">思考：你在發呆、胡思亂想、<br>隨意識流浮沉，還是<em>思考</em>？</span></p>
+  </div>
 </section>
 
 <!-- 3 今日旅程 -->
